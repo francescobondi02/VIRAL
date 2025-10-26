@@ -1,4 +1,10 @@
-﻿checkpoints/viral-7b
+﻿**/__pycache__/
+*.py[cod]
+checkpoints/viral-7b
 llava.egg-info
 wandb
 playground/*
+
+logs/*
+
+llava_v1_5_mix665k.json
