@@ -8,3 +8,9 @@ playground/*
 logs/*
 
 llava_v1_5_mix665k.json
+
+
+
+__pycache__/
+outputs/analysis/
+outputs/features/

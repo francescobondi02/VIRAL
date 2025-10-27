@@ -3,6 +3,7 @@ import argparse
 import torch
 from PIL import Image
 
+# * LLaVa utils
 from llava.model.builder import load_pretrained_model
 from llava.mm_utils import tokenizer_image_token
 from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN
@@ -17,8 +18,11 @@ def parse_args():
     parser.add_argument("--top_p", type=float, default=0.7)
     parser.add_argument("--max-new-tokens", type=int, default=100)
     parser.add_argument("--image-path", type=str, default="./images/llava_logo.png")
-    parser.add_argument("--prompt", type=str,
-                        default="Is the lizard facing left or right from the camera's perspective?")
+    parser.add_argument(
+        "--prompt",
+        type=str,
+        default="Is the lizard facing left or right from the camera's perspective?",
+    )
     return parser.parse_args()
 
 
@@ -31,15 +35,17 @@ def main():
 
     is_7b = "7b" in args.model_path.lower()
     model_base = "lmsys/vicuna-7b-v1.5" if is_7b else "lmsys/vicuna-13b-v1.5"
-    model_name = "llava-v1.5-7b-lora" if is_7b else "llava-v1.5-13b-lora"
+    model_name = (
+        "liuhaotian/llava-v1.5-7b-lora" if is_7b else "liuhaotian/llava-v1.5-13b-lora"
+    )
 
+    # * Obtain Tokenizer, Model, Image Processor, Context Length
     tokenizer, model, image_processor, context_len = load_pretrained_model(
-        model_path=args.model_path,
-        model_base=model_base,
-        model_name=model_name
+        model_path=args.model_path, model_base=model_base, model_name=model_name
     )
     model.to(device=device, dtype=dtype).eval()
 
+    # * Find those attributes in the model
     for attr in ("vra_loss", "residual", "residual_target_layers"):
         if hasattr(model, attr):
             if attr == "residual_target_layers":
@@ -47,9 +53,12 @@ def main():
             else:
                 setattr(model, attr, False)
 
+    # * Open the image for inference
     image = Image.open(args.image_path).convert("RGB")
     if hasattr(image_processor, "preprocess"):
-        pixel_values = image_processor.preprocess(image, return_tensors="pt")["pixel_values"]
+        pixel_values = image_processor.preprocess(image, return_tensors="pt")[
+            "pixel_values"
+        ]
     else:
         pixel_values = image_processor(image, return_tensors="pt")["pixel_values"]
     pixel_values = pixel_values.to(device=device, dtype=dtype)
@@ -59,9 +68,11 @@ def main():
     conv.append_message(conv.roles[1], None)
     prompt = conv.get_prompt()
 
-    input_ids = tokenizer_image_token(
-        prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt"
-    ).unsqueeze(0).to(device)
+    input_ids = (
+        tokenizer_image_token(prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt")
+        .unsqueeze(0)
+        .to(device)
+    )
 
     with torch.inference_mode():
         outputs = model.generate(
@@ -73,7 +84,8 @@ def main():
             max_new_tokens=args.max_new_tokens,
         )
 
-    output_text = tokenizer.decode(outputs.sequences[0], skip_special_tokens=True)
+    output_sequences = getattr(outputs, "sequences", outputs)
+    output_text = tokenizer.decode(output_sequences[0], skip_special_tokens=True)
 
     if conv.sep_style == SeparatorStyle.TWO:
         response = output_text.split(conv.sep2)[-1].strip()
