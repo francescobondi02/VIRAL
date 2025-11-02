@@ -9,7 +9,7 @@ logs/*
 
 llava_v1_5_mix665k.json
 
-
+checkpoints/
 
 __pycache__/
 outputs/analysis/
