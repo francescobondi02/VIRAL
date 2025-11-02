@@ -14,3 +14,4 @@ checkpoints/
 __pycache__/
 outputs/analysis/
 outputs/features/
+outputs/features-simple/

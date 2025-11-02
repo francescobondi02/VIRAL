@@ -23,6 +23,12 @@ def parse_args():
         type=str,
         default="Is the lizard facing left or right from the camera's perspective?",
     )
+    parser.add_argument(
+        "--model-base",
+        type=str,
+        default="liuhaotian/llava-v1.5-7b",
+        help="Base model to use when loading a LoRA adapter.",
+    )
     return parser.parse_args()
 
 
@@ -33,15 +39,17 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     dtype = torch.float16 if device == "cuda" else torch.float32
 
-    is_7b = "7b" in args.model_path.lower()
+    """ is_7b = "7b" in args.model_path.lower()
     model_base = "lmsys/vicuna-7b-v1.5" if is_7b else "lmsys/vicuna-13b-v1.5"
     model_name = (
         "liuhaotian/llava-v1.5-7b-lora" if is_7b else "liuhaotian/llava-v1.5-13b-lora"
-    )
+    ) """
 
     # * Obtain Tokenizer, Model, Image Processor, Context Length
+    print(f"[INFO] Loading base model: {args.model_base}")
+    print(f"[INFO] Loading LoRA adapter from: {args.model_path}")
     tokenizer, model, image_processor, context_len = load_pretrained_model(
-        model_path=args.model_path, model_base=model_base, model_name=model_name
+        model_path=args.model_path, model_base=args.model_base, model_name="llava-v1.5-7b-lora"
     )
     model.to(device=device, dtype=dtype).eval()
 

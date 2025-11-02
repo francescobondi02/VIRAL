@@ -36,7 +36,7 @@ python -c "from huggingface_hub import hf_hub_download; import os; print('HF cac
 # PATH CONFIGURATION
 # -------------------------------
 # Usa direttamente i repo Hugging Face, non più i checkpoint locali
-MODEL_PATH="liuhaotian/llava-v1.5-7b-lora"
+MODEL_PATH="/cluster/project/cvg/students/fbondi/sem-project/VIRAL/checkpoints/viral_checkpoints/llava-v1.5-7b-instruct-repa-dino-single-16"
 IMAGE_PATH="$PWD/images/web.jpg"
 PROMPT="Describe the image in detail."
 
@@ -46,6 +46,7 @@ PROMPT="Describe the image in detail."
 echo "[INFO] Launching inference..."
 python inference.py \
   --model-path "$MODEL_PATH" \
+  --model-base "liuhaotian/llava-v1.5-7b" \
   --image-path "$IMAGE_PATH" \
   --prompt "$PROMPT" \
   --temperature 0.1 \
