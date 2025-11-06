@@ -21,7 +21,7 @@ OUTPUT_PATH = "./outputs/analysis/feature_coherence_summary.json"
 os.makedirs(FEATURE_DIR, exist_ok=True)
 os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
 
-MODEL_PATH = "/cluster/project/cvg/students/fbondi/sem-project/VIRAL/checkpoints/viral_checkpoints/llava-v1.5-7b-instruct-repa-dino-single-16"
+MODEL_PATH = "/cluster/project/cvg/students/fbondi/sem-project/VIRAL/checkpoints/viral_checkpoints/llava-v1.5-7b-instruct-repa-dino-single-16/checkpoint-5000"
 MODEL_BASE = "liuhaotian/llava-v1.5-7b"
 MODEL_NAME = "llava-v1.5-7b-lora"
 

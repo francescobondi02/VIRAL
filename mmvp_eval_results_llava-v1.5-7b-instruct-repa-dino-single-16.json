@@ -1,0 +1,6308 @@
+{
+  "pair_accuracy": 0.2866666666666667,
+  "individual_accuracy": 0.6133333333333333,
+  "pair_results": [
+    {
+      "question": "Are the butterfly's wings closer to being open or closed?",
+      "items": [
+        {
+          "index": "1",
+          "question": "Are the butterfly's wings closer to being open or closed?",
+          "options": "(a) Open (b) Closed",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "2",
+          "question": "Are the butterfly's wings closer to being open or closed?",
+          "options": "(a) Open (b) Closed",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the flame of the match more round or thin?",
+      "items": [
+        {
+          "index": "3",
+          "question": "Is the flame of the match more round or thin?",
+          "options": "(a) Round (b) Thin",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "4",
+          "question": "Is the flame of the match more round or thin?",
+          "options": "(a) Round (b) Thin",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the dog facing left or right from the camera's perspective?",
+      "items": [
+        {
+          "index": "5",
+          "question": "Is the dog facing left or right from the camera's perspective?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "6",
+          "question": "Is the dog facing left or right from the camera's perspective?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the school bus driving towards or away from the camera?",
+      "items": [
+        {
+          "index": "7",
+          "question": "Is the school bus driving towards or away from the camera?",
+          "options": "(a) Towards the camera (b) Away from the camera",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "8",
+          "question": "Is the school bus driving towards or away from the camera?",
+          "options": "(a) Towards the camera (b) Away from the camera",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Can you see the key \"Z\" in the image?",
+      "items": [
+        {
+          "index": "9",
+          "question": "Can you see the key \"Z\" in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "10",
+          "question": "Can you see the key \"Z\" in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Has the peacock opened its tail?",
+      "items": [
+        {
+          "index": "11",
+          "question": "Has the peacock opened its tail?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "12",
+          "question": "Has the peacock opened its tail?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the image more likely of a single ear of corn or multiple ears",
+      "items": [
+        {
+          "index": "13",
+          "question": "Is the image more likely of a single ear of corn or multiple ears",
+          "options": "(a) Single (b) Multiple",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "14",
+          "question": "Is the image more likely of a single ear of corn or multiple ears",
+          "options": "(a) Single (b) Multiple",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is there a shadow on the flower?",
+      "items": [
+        {
+          "index": "15",
+          "question": "Is there a shadow on the flower?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "16",
+          "question": "Is there a shadow on the flower?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the front of the school bus protruding?",
+      "items": [
+        {
+          "index": "17",
+          "question": "Is the front of the school bus protruding?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "18",
+          "question": "Is the front of the school bus protruding?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Can you see the dorsal fin of the animal?",
+      "items": [
+        {
+          "index": "19",
+          "question": "Can you see the dorsal fin of the animal?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "20",
+          "question": "Can you see the dorsal fin of the animal?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the duck's entire beak visible in the picture?",
+      "items": [
+        {
+          "index": "21",
+          "question": "Is the duck's entire beak visible in the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "22",
+          "question": "Is the duck's entire beak visible in the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "From which angle is this image taken?",
+      "items": [
+        {
+          "index": "23",
+          "question": "From which angle is this image taken?",
+          "options": "(a) Front (b) Side",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "24",
+          "question": "From which angle is this image taken?",
+          "options": "(a) Front (b) Side",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "What color is the chicken's body?",
+      "items": [
+        {
+          "index": "25",
+          "question": "What color is the chicken's body?",
+          "options": "(a) Black (b) Red",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "26",
+          "question": "What color is the chicken's body?",
+          "options": "(a) Black (b) Red",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the peacock's head visible in the image?",
+      "items": [
+        {
+          "index": "27",
+          "question": "Is the peacock's head visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "28",
+          "question": "Is the peacock's head visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Based on the image, is the following statement correct: We cannot see the window on the school bus?",
+      "items": [
+        {
+          "index": "29",
+          "question": "Based on the image, is the following statement correct: We cannot see the window on the school bus?",
+          "options": "(a) Correct (b) Incorrect",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "30",
+          "question": "Based on the image, is the following statement correct: We cannot see the window on the school bus?",
+          "options": "(a) Correct (b) Incorrect",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the wind blowing the flag?",
+      "items": [
+        {
+          "index": "31",
+          "question": "Is the wind blowing the flag?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "32",
+          "question": "Is the wind blowing the flag?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the butterfly's abdomen visible in the image?",
+      "items": [
+        {
+          "index": "33",
+          "question": "Is the butterfly's abdomen visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "34",
+          "question": "Is the butterfly's abdomen visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Do the vegetables have spikes?",
+      "items": [
+        {
+          "index": "35",
+          "question": "Do the vegetables have spikes?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "36",
+          "question": "Do the vegetables have spikes?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "What color are the flowers in the background?",
+      "items": [
+        {
+          "index": "37",
+          "question": "What color are the flowers in the background?",
+          "options": "(a) Pink (b) Violet",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "38",
+          "question": "What color are the flowers in the background?",
+          "options": "(a) Pink (b) Violet",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the duck floating?",
+      "items": [
+        {
+          "index": "39",
+          "question": "Is the duck floating?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "40",
+          "question": "Is the duck floating?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Based on the image, is the following statement correct: The spider has 8 legs?",
+      "items": [
+        {
+          "index": "41",
+          "question": "Based on the image, is the following statement correct: The spider has 8 legs?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "42",
+          "question": "Based on the image, is the following statement correct: The spider has 8 legs?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are the wheels of the school bus visible in the image?",
+      "items": [
+        {
+          "index": "43",
+          "question": "Are the wheels of the school bus visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "44",
+          "question": "Are the wheels of the school bus visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the shark's belly visible in this image?",
+      "items": [
+        {
+          "index": "45",
+          "question": "Is the shark's belly visible in this image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "46",
+          "question": "Is the shark's belly visible in this image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "How many spots are on the animal in the image?",
+      "items": [
+        {
+          "index": "47",
+          "question": "How many spots are on the animal in the image?",
+          "options": "(a) 5 (b) 6",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "48",
+          "question": "How many spots are on the animal in the image?",
+          "options": "(a) 5 (b) 6",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are the arrow keys visible in the image?",
+      "items": [
+        {
+          "index": "49",
+          "question": "Are the arrow keys visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "50",
+          "question": "Are the arrow keys visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the elephant's trunk curled in the picture?",
+      "items": [
+        {
+          "index": "51",
+          "question": "Is the elephant's trunk curled in the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "52",
+          "question": "Is the elephant's trunk curled in the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the number of pills in the image in the range of countable?",
+      "items": [
+        {
+          "index": "53",
+          "question": "Is the number of pills in the image in the range of countable?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "54",
+          "question": "Is the number of pills in the image in the range of countable?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Can you see stems of bananas in the image?",
+      "items": [
+        {
+          "index": "55",
+          "question": "Can you see stems of bananas in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "56",
+          "question": "Can you see stems of bananas in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the crocodile submerged in the water?",
+      "items": [
+        {
+          "index": "57",
+          "question": "Is the crocodile submerged in the water?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "58",
+          "question": "Is the crocodile submerged in the water?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the lock locked to the chain-linked fence?",
+      "items": [
+        {
+          "index": "59",
+          "question": "Is the lock locked to the chain-linked fence?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "60",
+          "question": "Is the lock locked to the chain-linked fence?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Can you see letter \"J\" in the image?",
+      "items": [
+        {
+          "index": "61",
+          "question": "Can you see letter \"J\" in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "62",
+          "question": "Can you see letter \"J\" in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the following statement correct: In the image, there is one daisy that is under the shadow of a taller daisy.",
+      "items": [
+        {
+          "index": "63",
+          "question": "Is the following statement correct: In the image, there is one daisy that is under the shadow of a taller daisy.",
+          "options": " (a) Correct (b) Incorrect",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "64",
+          "question": "Is the following statement correct: In the image, there is one daisy that is under the shadow of a taller daisy.",
+          "options": " (a) Correct (b) Incorrect",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the following statement correct: There is no letter D on this image.",
+      "items": [
+        {
+          "index": "65",
+          "question": "Is the following statement correct: There is no letter D on this image.",
+          "options": " (a) Correct (b) Incorrect",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "66",
+          "question": "Is the following statement correct: There is no letter D on this image.",
+          "options": " (a) Correct (b) Incorrect",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are there any clouds?",
+      "items": [
+        {
+          "index": "67",
+          "question": "Are there any clouds?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "68",
+          "question": "Are there any clouds?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Did the snake stick out its tongue and touch its skin?",
+      "items": [
+        {
+          "index": "69",
+          "question": "Did the snake stick out its tongue and touch its skin?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "70",
+          "question": "Did the snake stick out its tongue and touch its skin?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the lock locked or unlocked?",
+      "items": [
+        {
+          "index": "71",
+          "question": "Is the lock locked or unlocked?",
+          "options": "(a) Locked (b) Unlocked",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "72",
+          "question": "Is the lock locked or unlocked?",
+          "options": "(a) Locked (b) Unlocked",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the ground wet?",
+      "items": [
+        {
+          "index": "73",
+          "question": "Is the ground wet?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "74",
+          "question": "Is the ground wet?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Do you see this flower from the top or the side?",
+      "items": [
+        {
+          "index": "75",
+          "question": "Do you see this flower from the top or the side?",
+          "options": "(a) Top (b) Side",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "76",
+          "question": "Do you see this flower from the top or the side?",
+          "options": "(a) Top (b) Side",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Can you see the caudal fin of the shark in the image?",
+      "items": [
+        {
+          "index": "77",
+          "question": "Can you see the caudal fin of the shark in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "78",
+          "question": "Can you see the caudal fin of the shark in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "In the image, is the snake's head oriented facing upwards or directed forwards?",
+      "items": [
+        {
+          "index": "79",
+          "question": "In the image, is the snake's head oriented facing upwards or directed forwards?",
+          "options": "(a) Upwards (b) Forward",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "80",
+          "question": "In the image, is the snake's head oriented facing upwards or directed forwards?",
+          "options": "(a) Upwards (b) Forward",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is this a hammerhead shark?",
+      "items": [
+        {
+          "index": "81",
+          "question": "Is this a hammerhead shark?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "82",
+          "question": "Is this a hammerhead shark?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the door of the truck cab open?",
+      "items": [
+        {
+          "index": "83",
+          "question": "Is the door of the truck cab open?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "84",
+          "question": "Is the door of the truck cab open?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are the ears of the dog erect or drooping?",
+      "items": [
+        {
+          "index": "85",
+          "question": "Are the ears of the dog erect or drooping?",
+          "options": "(a) Erect (b) Drooping",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "86",
+          "question": "Are the ears of the dog erect or drooping?",
+          "options": "(a) Erect (b) Drooping",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is there a hand using the mouse in the image?",
+      "items": [
+        {
+          "index": "87",
+          "question": "Is there a hand using the mouse in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "88",
+          "question": "Is there a hand using the mouse in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Can you see people in this image?",
+      "items": [
+        {
+          "index": "89",
+          "question": "Can you see people in this image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "90",
+          "question": "Can you see people in this image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Are there any words displayed on the vehicle's lightbar?",
+      "items": [
+        {
+          "index": "91",
+          "question": "Are there any words displayed on the vehicle's lightbar?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "92",
+          "question": "Are there any words displayed on the vehicle's lightbar?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is there any accessory on the wrists?",
+      "items": [
+        {
+          "index": "93",
+          "question": "Is there any accessory on the wrists?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "94",
+          "question": "Is there any accessory on the wrists?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "From the camera's perspective, is the spider web very dense or relatively sparse?",
+      "items": [
+        {
+          "index": "95",
+          "question": "From the camera's perspective, is the spider web very dense or relatively sparse?",
+          "options": "(a) Very dense (b) Relatively sparse",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "96",
+          "question": "From the camera's perspective, is the spider web very dense or relatively sparse?",
+          "options": "(a) Very dense (b) Relatively sparse",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Does the keyboard have a backlight?",
+      "items": [
+        {
+          "index": "97",
+          "question": "Does the keyboard have a backlight?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "98",
+          "question": "Does the keyboard have a backlight?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Does the elephant have long or short tusks?",
+      "items": [
+        {
+          "index": "99",
+          "question": "Does the elephant have long or short tusks?",
+          "options": "(a) Long (b) Short",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "100",
+          "question": "Does the elephant have long or short tusks?",
+          "options": "(a) Long (b) Short",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "What is the woman more likely to do?",
+      "items": [
+        {
+          "index": "101",
+          "question": "What is the woman more likely to do?",
+          "options": "(a) Bump (b) Set",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "102",
+          "question": "What is the woman more likely to do?",
+          "options": "(a) Bump (b) Set",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the needle pointing up or down?",
+      "items": [
+        {
+          "index": "103",
+          "question": "Is the needle pointing up or down?",
+          "options": "(a) Up (b) Down",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "104",
+          "question": "Is the needle pointing up or down?",
+          "options": "(a) Up (b) Down",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the camera positioned at eye level or looking down from above?",
+      "items": [
+        {
+          "index": "105",
+          "question": "Is the camera positioned at eye level or looking down from above?",
+          "options": "(a) Eye level (b) Above",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "106",
+          "question": "Is the camera positioned at eye level or looking down from above?",
+          "options": "(a) Eye level (b) Above",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are the butterfly's feet visible?",
+      "items": [
+        {
+          "index": "107",
+          "question": "Are the butterfly's feet visible?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "108",
+          "question": "Are the butterfly's feet visible?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Are the bird's wings flapping upward or downward?",
+      "items": [
+        {
+          "index": "109",
+          "question": "Are the bird's wings flapping upward or downward?",
+          "options": "(a) Upward (b) Downward",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "110",
+          "question": "Are the bird's wings flapping upward or downward?",
+          "options": "(a) Upward (b) Downward",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the end of the elephant's trunk pointing inward or outward?",
+      "items": [
+        {
+          "index": "111",
+          "question": "Is the end of the elephant's trunk pointing inward or outward?",
+          "options": "(a) Inward (b) Outward",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "112",
+          "question": "Is the end of the elephant's trunk pointing inward or outward?",
+          "options": "(a) Inward (b) Outward",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Do you see any window in this image?",
+      "items": [
+        {
+          "index": "113",
+          "question": "Do you see any window in this image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "114",
+          "question": "Do you see any window in this image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the snail in the picture facing the camera or away from the camera?",
+      "items": [
+        {
+          "index": "115",
+          "question": "Is the snail in the picture facing the camera or away from the camera?",
+          "options": "(a) Away from the camera (b) Facing the camera ",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "116",
+          "question": "Is the snail in the picture facing the camera or away from the camera?",
+          "options": "(a) Away from the camera (b) Facing the camera ",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "How many eyes of the cat can you see in the picture?",
+      "items": [
+        {
+          "index": "117",
+          "question": "How many eyes of the cat can you see in the picture?",
+          "options": "(a) 1 (b) 2",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "118",
+          "question": "How many eyes of the cat can you see in the picture?",
+          "options": "(a) 1 (b) 2",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "In this image, how many eyes can you see on the animal?",
+      "items": [
+        {
+          "index": "119",
+          "question": "In this image, how many eyes can you see on the animal?",
+          "options": "(a) 1 (b) 2",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "120",
+          "question": "In this image, how many eyes can you see on the animal?",
+          "options": "(a) 1 (b) 2",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Does this corn have white kernels?",
+      "items": [
+        {
+          "index": "121",
+          "question": "Does this corn have white kernels?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "122",
+          "question": "Does this corn have white kernels?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is this duck facing left or right from the camera's perspective?",
+      "items": [
+        {
+          "index": "123",
+          "question": "Is this duck facing left or right from the camera's perspective?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "124",
+          "question": "Is this duck facing left or right from the camera's perspective?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Can you see a door in this image?",
+      "items": [
+        {
+          "index": "125",
+          "question": "Can you see a door in this image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "126",
+          "question": "Can you see a door in this image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the flower's center protruding or indented?",
+      "items": [
+        {
+          "index": "127",
+          "question": "Is the flower's center protruding or indented?",
+          "options": "(a) Protruding (b) Indented",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "128",
+          "question": "Is the flower's center protruding or indented?",
+          "options": "(a) Protruding (b) Indented",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "From the camera's perspective, are the words \"SCHOOL BUS\" in the picture facing straight or oriented at an angle?",
+      "items": [
+        {
+          "index": "129",
+          "question": "From the camera's perspective, are the words \"SCHOOL BUS\" in the picture facing straight or oriented at an angle?",
+          "options": "(a) Directly towards the camera (b) At an angle",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "130",
+          "question": "From the camera's perspective, are the words \"SCHOOL BUS\" in the picture facing straight or oriented at an angle?",
+          "options": "(a) Directly towards the camera (b) At an angle",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Where is the yellow animal's head lying in this image?",
+      "items": [
+        {
+          "index": "131",
+          "question": "Where is the yellow animal's head lying in this image?",
+          "options": "(a) Floor (b) Carpet",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "132",
+          "question": "Where is the yellow animal's head lying in this image?",
+          "options": "(a) Floor (b) Carpet",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "What does the center button say?",
+      "items": [
+        {
+          "index": "133",
+          "question": "What does the center button say?",
+          "options": "(a) OK/SELECT (b) OK",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "134",
+          "question": "What does the center button say?",
+          "options": "(a) OK/SELECT (b) OK",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "How many cup(s) of drink are there in the image?",
+      "items": [
+        {
+          "index": "135",
+          "question": "How many cup(s) of drink are there in the image?",
+          "options": "(a) 1 (b) 2",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "136",
+          "question": "How many cup(s) of drink are there in the image?",
+          "options": "(a) 1 (b) 2",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "In the picture, how is the snake primarily positioned?",
+      "items": [
+        {
+          "index": "137",
+          "question": "In the picture, how is the snake primarily positioned?",
+          "options": "(a) Coiled (b) Head extended",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "138",
+          "question": "In the picture, how is the snake primarily positioned?",
+          "options": "(a) Coiled (b) Head extended",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Can you see the side windows of the vehicles?",
+      "items": [
+        {
+          "index": "139",
+          "question": "Can you see the side windows of the vehicles?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "140",
+          "question": "Can you see the side windows of the vehicles?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the elephant's trunk raised or lowered?",
+      "items": [
+        {
+          "index": "141",
+          "question": "Is the elephant's trunk raised or lowered?",
+          "options": "(a) Raised (b) Lowered",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "142",
+          "question": "Is the elephant's trunk raised or lowered?",
+          "options": "(a) Raised (b) Lowered",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the ladybug positioned upright or upside down?",
+      "items": [
+        {
+          "index": "143",
+          "question": "Is the ladybug positioned upright or upside down?",
+          "options": "(a) Upright (b) Upside down",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "144",
+          "question": "Is the ladybug positioned upright or upside down?",
+          "options": "(a) Upright (b) Upside down",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the photo taken looking down from above or looking up from below?",
+      "items": [
+        {
+          "index": "145",
+          "question": "Is the photo taken looking down from above or looking up from below?",
+          "options": "(a) Looking down from above (b) Looking up from below",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "146",
+          "question": "Is the photo taken looking down from above or looking up from below?",
+          "options": "(a) Looking down from above (b) Looking up from below",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "In the picture, is the snake's head visible or not visible?",
+      "items": [
+        {
+          "index": "147",
+          "question": "In the picture, is the snake's head visible or not visible?",
+          "options": "(a) Visible (b) Not visible",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "148",
+          "question": "In the picture, is the snake's head visible or not visible?",
+          "options": "(a) Visible (b) Not visible",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the piano's back panel on the left or right side?",
+      "items": [
+        {
+          "index": "149",
+          "question": "Is the piano's back panel on the left or right side?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "150",
+          "question": "Is the piano's back panel on the left or right side?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "The image captures a woman running from:",
+      "items": [
+        {
+          "index": "151",
+          "question": "The image captures a woman running from:",
+          "options": "(a) Back view (b) Side view",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "152",
+          "question": "The image captures a woman running from:",
+          "options": "(a) Back view (b) Side view",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "How many red apples are there in the image?",
+      "items": [
+        {
+          "index": "153",
+          "question": "How many red apples are there in the image?",
+          "options": "(a) One (b) More than one",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "154",
+          "question": "How many red apples are there in the image?",
+          "options": "(a) One (b) More than one",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the vase beside the bedside table or on the windowsill?",
+      "items": [
+        {
+          "index": "155",
+          "question": "Is the vase beside the bedside table or on the windowsill?",
+          "options": "(a) Beside the bedside Table (b) On the Windowsill",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "156",
+          "question": "Is the vase beside the bedside table or on the windowsill?",
+          "options": "(a) Beside the bedside Table (b) On the Windowsill",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the frame at the front of the motorcycle primarily silver or black in color?",
+      "items": [
+        {
+          "index": "157",
+          "question": "Is the frame at the front of the motorcycle primarily silver or black in color?",
+          "options": "(a) Silver (b) Black",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "158",
+          "question": "Is the frame at the front of the motorcycle primarily silver or black in color?",
+          "options": "(a) Silver (b) Black",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "For the people operating the machine in the image, can you see one arm or both arms?",
+      "items": [
+        {
+          "index": "159",
+          "question": "For the people operating the machine in the image, can you see one arm or both arms?",
+          "options": "(a) One arm (b) Both arms",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "160",
+          "question": "For the people operating the machine in the image, can you see one arm or both arms?",
+          "options": "(a) One arm (b) Both arms",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the minute hand of the clock closer to 12 or closer to 1?",
+      "items": [
+        {
+          "index": "161",
+          "question": "Is the minute hand of the clock closer to 12 or closer to 1?",
+          "options": "(a) 12 (b) 1 ",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "162",
+          "question": "Is the minute hand of the clock closer to 12 or closer to 1?",
+          "options": "(a) 12 (b) 1 ",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the Christmas tree positioned in front of a large window or in front of a wall situated between two windows?",
+      "items": [
+        {
+          "index": "163",
+          "question": "Is the Christmas tree positioned in front of a large window or in front of a wall situated between two windows?",
+          "options": "(a) In front of a large window (b) In front of a wall between two windows",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "164",
+          "question": "Is the Christmas tree positioned in front of a large window or in front of a wall situated between two windows?",
+          "options": "(a) In front of a large window (b) In front of a wall between two windows",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "In this image, are the berries placed",
+      "items": [
+        {
+          "index": "165",
+          "question": "In this image, are the berries placed",
+          "options": "(a) On a dish (b) In bowls of yogurts",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "166",
+          "question": "In this image, are the berries placed",
+          "options": "(a) On a dish (b) In bowls of yogurts",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are some fruits cut open or are all the fruits uncut?",
+      "items": [
+        {
+          "index": "167",
+          "question": "Are some fruits cut open or are all the fruits uncut?",
+          "options": "(a) Some are cut open (b) All are uncut",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "168",
+          "question": "Are some fruits cut open or are all the fruits uncut?",
+          "options": "(a) Some are cut open (b) All are uncut",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is there a knee visible in the image?",
+      "items": [
+        {
+          "index": "169",
+          "question": "Is there a knee visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "170",
+          "question": "Is there a knee visible in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Does the snowman in the picture have a mouth?",
+      "items": [
+        {
+          "index": "171",
+          "question": "Does the snowman in the picture have a mouth?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "172",
+          "question": "Does the snowman in the picture have a mouth?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the decoration on the Easter egg flat or raised?",
+      "items": [
+        {
+          "index": "173",
+          "question": "Is the decoration on the Easter egg flat or raised?",
+          "options": "(a) Flat (b) Raised",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "174",
+          "question": "Is the decoration on the Easter egg flat or raised?",
+          "options": "(a) Flat (b) Raised",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "In the image, is the nail polish on the toes dark or light in color?",
+      "items": [
+        {
+          "index": "175",
+          "question": "In the image, is the nail polish on the toes dark or light in color?",
+          "options": "(a) Dark (b) Light",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "176",
+          "question": "In the image, is the nail polish on the toes dark or light in color?",
+          "options": "(a) Dark (b) Light",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "In the picture, is the person facing the ocean or turned sideways to the ocean?",
+      "items": [
+        {
+          "index": "177",
+          "question": "In the picture, is the person facing the ocean or turned sideways to the ocean?",
+          "options": "(a) Facing the ocean (b) Turned sideways to the ocean",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "178",
+          "question": "In the picture, is the person facing the ocean or turned sideways to the ocean?",
+          "options": "(a) Facing the ocean (b) Turned sideways to the ocean",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "How many wheels can you see in the image?",
+      "items": [
+        {
+          "index": "179",
+          "question": "How many wheels can you see in the image?",
+          "options": "(a) 1 (b) 2",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "180",
+          "question": "How many wheels can you see in the image?",
+          "options": "(a) 1 (b) 2",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the stripe in the middle of the car blue or white?",
+      "items": [
+        {
+          "index": "181",
+          "question": "Is the stripe in the middle of the car blue or white?",
+          "options": "(a) Blue (b) White",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "182",
+          "question": "Is the stripe in the middle of the car blue or white?",
+          "options": "(a) Blue (b) White",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are the teddy bears holding hands or leaning against each other?",
+      "items": [
+        {
+          "index": "183",
+          "question": "Are the teddy bears holding hands or leaning against each other?",
+          "options": "(a) Holding hands (b) Leaning against",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "184",
+          "question": "Are the teddy bears holding hands or leaning against each other?",
+          "options": "(a) Holding hands (b) Leaning against",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the person in the picture already standing on the weighing scale?",
+      "items": [
+        {
+          "index": "185",
+          "question": "Is the person in the picture already standing on the weighing scale?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "186",
+          "question": "Is the person in the picture already standing on the weighing scale?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "In the picture, is the person stretching out one arm or both arms above their head?",
+      "items": [
+        {
+          "index": "187",
+          "question": "In the picture, is the person stretching out one arm or both arms above their head?",
+          "options": "(a) One arm (b) Both arms",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "188",
+          "question": "In the picture, is the person stretching out one arm or both arms above their head?",
+          "options": "(a) One arm (b) Both arms",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the person in the picture on the grass or on the gravel path?",
+      "items": [
+        {
+          "index": "189",
+          "question": "Is the person in the picture on the grass or on the gravel path?",
+          "options": "(a) Grass (b) Gravel path",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "190",
+          "question": "Is the person in the picture on the grass or on the gravel path?",
+          "options": "(a) Grass (b) Gravel path",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is there a flower next to the Easter egg in the picture?",
+      "items": [
+        {
+          "index": "191",
+          "question": "Is there a flower next to the Easter egg in the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "192",
+          "question": "Is there a flower next to the Easter egg in the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are these vegetables placed on the floor or on the soil?",
+      "items": [
+        {
+          "index": "193",
+          "question": "Are these vegetables placed on the floor or on the soil?",
+          "options": "(a) Floor (b) Soil",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "194",
+          "question": "Are these vegetables placed on the floor or on the soil?",
+          "options": "(a) Floor (b) Soil",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are juice and all carrots on the same surface?",
+      "items": [
+        {
+          "index": "195",
+          "question": "Are juice and all carrots on the same surface?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "196",
+          "question": "Are juice and all carrots on the same surface?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the person weighing themselves barefoot?",
+      "items": [
+        {
+          "index": "197",
+          "question": "Is the person weighing themselves barefoot?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "198",
+          "question": "Is the person weighing themselves barefoot?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Which type of eggs are in the corner of the picture?",
+      "items": [
+        {
+          "index": "199",
+          "question": "Which type of eggs are in the corner of the picture?",
+          "options": "(a) Quail eggs (b) Chicken eggs ",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "200",
+          "question": "Which type of eggs are in the corner of the picture?",
+          "options": "(a) Quail eggs (b) Chicken eggs ",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "What are the words in the image:",
+      "items": [
+        {
+          "index": "201",
+          "question": "What are the words in the image:",
+          "options": "(a) \"Happy Easter\" (b) \"Happy Easter!\"",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "202",
+          "question": "What are the words in the image:",
+          "options": "(a) \"Happy Easter\" (b) \"Happy Easter!\"",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are these oranges hanging on the tree?",
+      "items": [
+        {
+          "index": "203",
+          "question": "Are these oranges hanging on the tree?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "204",
+          "question": "Are these oranges hanging on the tree?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the coffee cup made of glass?",
+      "items": [
+        {
+          "index": "205",
+          "question": "Is the coffee cup made of glass?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "206",
+          "question": "Is the coffee cup made of glass?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the bell pepper in the picture red or yellow?",
+      "items": [
+        {
+          "index": "207",
+          "question": "Is the bell pepper in the picture red or yellow?",
+          "options": "(a) Red (b) Yellow",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "208",
+          "question": "Is the bell pepper in the picture red or yellow?",
+          "options": "(a) Red (b) Yellow",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is there an orange with leaves next to the cup?",
+      "items": [
+        {
+          "index": "209",
+          "question": "Is there an orange with leaves next to the cup?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "210",
+          "question": "Is there an orange with leaves next to the cup?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the heart-shaped object resting on the palm or being held by the fingers?",
+      "items": [
+        {
+          "index": "211",
+          "question": "Is the heart-shaped object resting on the palm or being held by the fingers?",
+          "options": "(a) Palm (b) Fingers",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "212",
+          "question": "Is the heart-shaped object resting on the palm or being held by the fingers?",
+          "options": "(a) Palm (b) Fingers",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Does the snowman have arms made of branches?",
+      "items": [
+        {
+          "index": "213",
+          "question": "Does the snowman have arms made of branches?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "214",
+          "question": "Does the snowman have arms made of branches?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are there black stripes on the roof of the car?",
+      "items": [
+        {
+          "index": "215",
+          "question": "Are there black stripes on the roof of the car?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "216",
+          "question": "Are there black stripes on the roof of the car?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the knife laid flat or standing up?",
+      "items": [
+        {
+          "index": "217",
+          "question": "Is the knife laid flat or standing up?",
+          "options": "(a) Flat (b) Standing up",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "218",
+          "question": "Is the knife laid flat or standing up?",
+          "options": "(a) Flat (b) Standing up",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the person in the image running towards or away from the camera?",
+      "items": [
+        {
+          "index": "219",
+          "question": "Is the person in the image running towards or away from the camera?",
+          "options": "(a) Towards (b) Away from",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "220",
+          "question": "Is the person in the image running towards or away from the camera?",
+          "options": "(a) Towards (b) Away from",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "In the photo, is one of the man's hands blocked by the woman?",
+      "items": [
+        {
+          "index": "221",
+          "question": "In the photo, is one of the man's hands blocked by the woman?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "222",
+          "question": "In the photo, is one of the man's hands blocked by the woman?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is there a pomegranate in the picture?",
+      "items": [
+        {
+          "index": "223",
+          "question": "Is there a pomegranate in the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "224",
+          "question": "Is there a pomegranate in the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are all the cups and bottles in the picture the same height?",
+      "items": [
+        {
+          "index": "225",
+          "question": "Are all the cups and bottles in the picture the same height?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "226",
+          "question": "Are all the cups and bottles in the picture the same height?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Does the person in the picture have something in their hand?",
+      "items": [
+        {
+          "index": "227",
+          "question": "Does the person in the picture have something in their hand?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "228",
+          "question": "Does the person in the picture have something in their hand?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Do all the bottles in the picture face the same direction?",
+      "items": [
+        {
+          "index": "229",
+          "question": "Do all the bottles in the picture face the same direction?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "230",
+          "question": "Do all the bottles in the picture face the same direction?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are all easter eggs placed in a container (e.g nest, basket)?",
+      "items": [
+        {
+          "index": "231",
+          "question": "Are all easter eggs placed in a container (e.g nest, basket)?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "232",
+          "question": "Are all easter eggs placed in a container (e.g nest, basket)?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the sky in the background dark blue or light blue?",
+      "items": [
+        {
+          "index": "233",
+          "question": "Is the sky in the background dark blue or light blue?",
+          "options": "(a) Dark blue (b) Light blue",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "234",
+          "question": "Is the sky in the background dark blue or light blue?",
+          "options": "(a) Dark blue (b) Light blue",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Do the individuals in the picture face the front or the back?",
+      "items": [
+        {
+          "index": "235",
+          "question": "Do the individuals in the picture face the front or the back?",
+          "options": "(a) Front (b) Back",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "236",
+          "question": "Do the individuals in the picture face the front or the back?",
+          "options": "(a) Front (b) Back",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the ground completely covered by red fallen leaves?",
+      "items": [
+        {
+          "index": "237",
+          "question": "Is the ground completely covered by red fallen leaves?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "238",
+          "question": "Is the ground completely covered by red fallen leaves?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are the leather shoes placed side by side or is one on top of the other?",
+      "items": [
+        {
+          "index": "239",
+          "question": "Are the leather shoes placed side by side or is one on top of the other?",
+          "options": "(a) Side by side (b) One on top of the other",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "240",
+          "question": "Are the leather shoes placed side by side or is one on top of the other?",
+          "options": "(a) Side by side (b) One on top of the other",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the photo taken directly above the coffee or from the side?",
+      "items": [
+        {
+          "index": "241",
+          "question": "Is the photo taken directly above the coffee or from the side?",
+          "options": "(a) Above (b) From the side",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "242",
+          "question": "Is the photo taken directly above the coffee or from the side?",
+          "options": "(a) Above (b) From the side",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the rabbit in the image facing left or right?",
+      "items": [
+        {
+          "index": "243",
+          "question": "Is the rabbit in the image facing left or right?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "244",
+          "question": "Is the rabbit in the image facing left or right?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the elderly person in the picture standing or sitting?",
+      "items": [
+        {
+          "index": "245",
+          "question": "Is the elderly person in the picture standing or sitting?",
+          "options": "(a) Standing (b) Sitting",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "246",
+          "question": "Is the elderly person in the picture standing or sitting?",
+          "options": "(a) Standing (b) Sitting",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are there any fruits or vegetables in the heart-shaped part of the picture?",
+      "items": [
+        {
+          "index": "247",
+          "question": "Are there any fruits or vegetables in the heart-shaped part of the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "248",
+          "question": "Are there any fruits or vegetables in the heart-shaped part of the picture?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the very top of the cake strawberries or cream?",
+      "items": [
+        {
+          "index": "249",
+          "question": "Is the very top of the cake strawberries or cream?",
+          "options": "(a) Strawberries (b) Cream",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "250",
+          "question": "Is the very top of the cake strawberries or cream?",
+          "options": "(a) Strawberries (b) Cream",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the beverage in the picture contained in a mug or a glass?",
+      "items": [
+        {
+          "index": "251",
+          "question": "Is the beverage in the picture contained in a mug or a glass?",
+          "options": "(a) Mug (b) Glass",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "252",
+          "question": "Is the beverage in the picture contained in a mug or a glass?",
+          "options": "(a) Mug (b) Glass",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the design in the picture Santa Claus or a snowman?",
+      "items": [
+        {
+          "index": "253",
+          "question": "Is the design in the picture Santa Claus or a snowman?",
+          "options": "(a) Santa Claus (b) Snowman",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "254",
+          "question": "Is the design in the picture Santa Claus or a snowman?",
+          "options": "(a) Santa Claus (b) Snowman",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Are there cookies stacked on top of other cookies?",
+      "items": [
+        {
+          "index": "255",
+          "question": "Are there cookies stacked on top of other cookies?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "256",
+          "question": "Are there cookies stacked on top of other cookies?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is there a lemon inside the drink in the cup or are all the lemons outside the drink?",
+      "items": [
+        {
+          "index": "257",
+          "question": "Is there a lemon inside the drink in the cup or are all the lemons outside the drink?",
+          "options": "(a) There is one inside (b) All are outside",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "258",
+          "question": "Is there a lemon inside the drink in the cup or are all the lemons outside the drink?",
+          "options": "(a) There is one inside (b) All are outside",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "In the picture, are the elderly people moving to the left or to the right?",
+      "items": [
+        {
+          "index": "259",
+          "question": "In the picture, are the elderly people moving to the left or to the right?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "260",
+          "question": "In the picture, are the elderly people moving to the left or to the right?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the person in the picture sitting on a black or white chair?",
+      "items": [
+        {
+          "index": "261",
+          "question": "Is the person in the picture sitting on a black or white chair?",
+          "options": "(a) Black (b) White",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "262",
+          "question": "Is the person in the picture sitting on a black or white chair?",
+          "options": "(a) Black (b) White",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is it a slice of cake or a whole cake in the picture?",
+      "items": [
+        {
+          "index": "263",
+          "question": "Is it a slice of cake or a whole cake in the picture?",
+          "options": "(a) Slice (b) Whole",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "264",
+          "question": "Is it a slice of cake or a whole cake in the picture?",
+          "options": "(a) Slice (b) Whole",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the shoe in the image tied or untied?",
+      "items": [
+        {
+          "index": "265",
+          "question": "Is the shoe in the image tied or untied?",
+          "options": "(a) Tied (b) Untied",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "266",
+          "question": "Is the shoe in the image tied or untied?",
+          "options": "(a) Tied (b) Untied",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the child in the picture facing forward or in profile?",
+      "items": [
+        {
+          "index": "267",
+          "question": "Is the child in the picture facing forward or in profile?",
+          "options": "(a) Facing forward (b) In profile",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "268",
+          "question": "Is the child in the picture facing forward or in profile?",
+          "options": "(a) Facing forward (b) In profile",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the wall behind the bed empty or is there a painting hanging on it?",
+      "items": [
+        {
+          "index": "269",
+          "question": "Is the wall behind the bed empty or is there a painting hanging on it?",
+          "options": "(a) Empty (b) A painting hanging on it",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "270",
+          "question": "Is the wall behind the bed empty or is there a painting hanging on it?",
+          "options": "(a) Empty (b) A painting hanging on it",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the male in the picture wearing a shirt or a T-shirt?",
+      "items": [
+        {
+          "index": "271",
+          "question": "Is the male in the picture wearing a shirt or a T-shirt?",
+          "options": "(a) Shirt (b) T-shirt",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "272",
+          "question": "Is the male in the picture wearing a shirt or a T-shirt?",
+          "options": "(a) Shirt (b) T-shirt",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "What pattern is in the picture?",
+      "items": [
+        {
+          "index": "273",
+          "question": "What pattern is in the picture?",
+          "options": "(a) Pumpkin Lights (b) Bats",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "274",
+          "question": "What pattern is in the picture?",
+          "options": "(a) Pumpkin Lights (b) Bats",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "How many trees are the treehouse built on?",
+      "items": [
+        {
+          "index": "275",
+          "question": "How many trees are the treehouse built on?",
+          "options": "(a) One (b) More than one",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "276",
+          "question": "How many trees are the treehouse built on?",
+          "options": "(a) One (b) More than one",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "What are all the letter in the image?",
+      "items": [
+        {
+          "index": "277",
+          "question": "What are all the letter in the image?",
+          "options": "(a) SUGAR (b) UGA",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "278",
+          "question": "What are all the letter in the image?",
+          "options": "(a) SUGAR (b) UGA",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the elderly person standing or sitting in the picture?",
+      "items": [
+        {
+          "index": "279",
+          "question": "Is the elderly person standing or sitting in the picture?",
+          "options": "(a) Standing (b) Sitting",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "280",
+          "question": "Is the elderly person standing or sitting in the picture?",
+          "options": "(a) Standing (b) Sitting",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Are there drinks on the table?",
+      "items": [
+        {
+          "index": "281",
+          "question": "Are there drinks on the table?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "282",
+          "question": "Are there drinks on the table?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "In the image, is it a salmon fillet or a salmon steak?",
+      "items": [
+        {
+          "index": "283",
+          "question": "In the image, is it a salmon fillet or a salmon steak?",
+          "options": "(a) Salmon fillet (b) Salmon steak",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "284",
+          "question": "In the image, is it a salmon fillet or a salmon steak?",
+          "options": "(a) Salmon fillet (b) Salmon steak",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Do you see a yellow towel in the image?",
+      "items": [
+        {
+          "index": "285",
+          "question": "Do you see a yellow towel in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "286",
+          "question": "Do you see a yellow towel in the image?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the cup placed on a surface or being held by hand?",
+      "items": [
+        {
+          "index": "287",
+          "question": "Is the cup placed on a surface or being held by hand?",
+          "options": "(a) Placed on a surface (b) Held by hand",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "288",
+          "question": "Is the cup placed on a surface or being held by hand?",
+          "options": "(a) Placed on a surface (b) Held by hand",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the following statement correct: There are different colors of grapes in the image.",
+      "items": [
+        {
+          "index": "289",
+          "question": "Is the following statement correct: There are different colors of grapes in the image.",
+          "options": "(a) Correct (b) Incorrect",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "290",
+          "question": "Is the following statement correct: There are different colors of grapes in the image.",
+          "options": "(a) Correct (b) Incorrect",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the minion in the image smiling with its tongue out?",
+      "items": [
+        {
+          "index": "291",
+          "question": "Is the minion in the image smiling with its tongue out?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "292",
+          "question": "Is the minion in the image smiling with its tongue out?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Is the sports car in the picture facing left or right?",
+      "items": [
+        {
+          "index": "293",
+          "question": "Is the sports car in the picture facing left or right?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "294",
+          "question": "Is the sports car in the picture facing left or right?",
+          "options": "(a) Left (b) Right",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "Is the edge of the heart in the picture white or dark-colored?",
+      "items": [
+        {
+          "index": "295",
+          "question": "Is the edge of the heart in the picture white or dark-colored?",
+          "options": "(a) White (b) Dark-colored",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "296",
+          "question": "Is the edge of the heart in the picture white or dark-colored?",
+          "options": "(a) White (b) Dark-colored",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": true
+    },
+    {
+      "question": "Are there patterns on the easter eggs?",
+      "items": [
+        {
+          "index": "297",
+          "question": "Are there patterns on the easter eggs?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(a)",
+          "correct": true,
+          "full_response": "A"
+        },
+        {
+          "index": "298",
+          "question": "Are there patterns on the easter eggs?",
+          "options": "(a) Yes (b) No",
+          "prediction": "(a)",
+          "correct_answer": "(b)",
+          "correct": false,
+          "full_response": "A"
+        }
+      ],
+      "correct": false
+    },
+    {
+      "question": "How would you describe the background of the image?",
+      "items": [
+        {
+          "index": "299",
+          "question": "How would you describe the background of the image?",
+          "options": "(a) Light shining through the clouds from the upper right corner (b) Most of the background is dark and cloudy",
+          "prediction": "(b)",
+          "correct_answer": "(a)",
+          "correct": false,
+          "full_response": "B"
+        },
+        {
+          "index": "300",
+          "question": "How would you describe the background of the image?",
+          "options": "(a) Light shining through the clouds from the upper right corner (b) Most of the background is dark and cloudy",
+          "prediction": "(b)",
+          "correct_answer": "(b)",
+          "correct": true,
+          "full_response": "B"
+        }
+      ],
+      "correct": false
+    }
+  ],
+  "individual_results": [
+    {
+      "index": "1",
+      "question": "Are the butterfly's wings closer to being open or closed?",
+      "options": "(a) Open (b) Closed",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "2",
+      "question": "Are the butterfly's wings closer to being open or closed?",
+      "options": "(a) Open (b) Closed",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "3",
+      "question": "Is the flame of the match more round or thin?",
+      "options": "(a) Round (b) Thin",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "4",
+      "question": "Is the flame of the match more round or thin?",
+      "options": "(a) Round (b) Thin",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "5",
+      "question": "Is the dog facing left or right from the camera's perspective?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "6",
+      "question": "Is the dog facing left or right from the camera's perspective?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "7",
+      "question": "Is the school bus driving towards or away from the camera?",
+      "options": "(a) Towards the camera (b) Away from the camera",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "8",
+      "question": "Is the school bus driving towards or away from the camera?",
+      "options": "(a) Towards the camera (b) Away from the camera",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "9",
+      "question": "Can you see the key \"Z\" in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "10",
+      "question": "Can you see the key \"Z\" in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "11",
+      "question": "Has the peacock opened its tail?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "12",
+      "question": "Has the peacock opened its tail?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "13",
+      "question": "Is the image more likely of a single ear of corn or multiple ears",
+      "options": "(a) Single (b) Multiple",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "14",
+      "question": "Is the image more likely of a single ear of corn or multiple ears",
+      "options": "(a) Single (b) Multiple",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "15",
+      "question": "Is there a shadow on the flower?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "16",
+      "question": "Is there a shadow on the flower?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "17",
+      "question": "Is the front of the school bus protruding?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "18",
+      "question": "Is the front of the school bus protruding?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "19",
+      "question": "Can you see the dorsal fin of the animal?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "20",
+      "question": "Can you see the dorsal fin of the animal?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "21",
+      "question": "Is the duck's entire beak visible in the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "22",
+      "question": "Is the duck's entire beak visible in the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "23",
+      "question": "From which angle is this image taken?",
+      "options": "(a) Front (b) Side",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "24",
+      "question": "From which angle is this image taken?",
+      "options": "(a) Front (b) Side",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "25",
+      "question": "What color is the chicken's body?",
+      "options": "(a) Black (b) Red",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "26",
+      "question": "What color is the chicken's body?",
+      "options": "(a) Black (b) Red",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "27",
+      "question": "Is the peacock's head visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "28",
+      "question": "Is the peacock's head visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "29",
+      "question": "Based on the image, is the following statement correct: We cannot see the window on the school bus?",
+      "options": "(a) Correct (b) Incorrect",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "30",
+      "question": "Based on the image, is the following statement correct: We cannot see the window on the school bus?",
+      "options": "(a) Correct (b) Incorrect",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "31",
+      "question": "Is the wind blowing the flag?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "32",
+      "question": "Is the wind blowing the flag?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "33",
+      "question": "Is the butterfly's abdomen visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "34",
+      "question": "Is the butterfly's abdomen visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "35",
+      "question": "Do the vegetables have spikes?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "36",
+      "question": "Do the vegetables have spikes?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "37",
+      "question": "What color are the flowers in the background?",
+      "options": "(a) Pink (b) Violet",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "38",
+      "question": "What color are the flowers in the background?",
+      "options": "(a) Pink (b) Violet",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "39",
+      "question": "Is the duck floating?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "40",
+      "question": "Is the duck floating?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "41",
+      "question": "Based on the image, is the following statement correct: The spider has 8 legs?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "42",
+      "question": "Based on the image, is the following statement correct: The spider has 8 legs?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "43",
+      "question": "Are the wheels of the school bus visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "44",
+      "question": "Are the wheels of the school bus visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "45",
+      "question": "Is the shark's belly visible in this image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "46",
+      "question": "Is the shark's belly visible in this image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "47",
+      "question": "How many spots are on the animal in the image?",
+      "options": "(a) 5 (b) 6",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "48",
+      "question": "How many spots are on the animal in the image?",
+      "options": "(a) 5 (b) 6",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "49",
+      "question": "Are the arrow keys visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "50",
+      "question": "Are the arrow keys visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "51",
+      "question": "Is the elephant's trunk curled in the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "52",
+      "question": "Is the elephant's trunk curled in the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "53",
+      "question": "Is the number of pills in the image in the range of countable?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "54",
+      "question": "Is the number of pills in the image in the range of countable?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "55",
+      "question": "Can you see stems of bananas in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "56",
+      "question": "Can you see stems of bananas in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "57",
+      "question": "Is the crocodile submerged in the water?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "58",
+      "question": "Is the crocodile submerged in the water?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "59",
+      "question": "Is the lock locked to the chain-linked fence?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "60",
+      "question": "Is the lock locked to the chain-linked fence?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "61",
+      "question": "Can you see letter \"J\" in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "62",
+      "question": "Can you see letter \"J\" in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "63",
+      "question": "Is the following statement correct: In the image, there is one daisy that is under the shadow of a taller daisy.",
+      "options": " (a) Correct (b) Incorrect",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "64",
+      "question": "Is the following statement correct: In the image, there is one daisy that is under the shadow of a taller daisy.",
+      "options": " (a) Correct (b) Incorrect",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "65",
+      "question": "Is the following statement correct: There is no letter D on this image.",
+      "options": " (a) Correct (b) Incorrect",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "66",
+      "question": "Is the following statement correct: There is no letter D on this image.",
+      "options": " (a) Correct (b) Incorrect",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "67",
+      "question": "Are there any clouds?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "68",
+      "question": "Are there any clouds?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "69",
+      "question": "Did the snake stick out its tongue and touch its skin?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "70",
+      "question": "Did the snake stick out its tongue and touch its skin?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "71",
+      "question": "Is the lock locked or unlocked?",
+      "options": "(a) Locked (b) Unlocked",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "72",
+      "question": "Is the lock locked or unlocked?",
+      "options": "(a) Locked (b) Unlocked",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "73",
+      "question": "Is the ground wet?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "74",
+      "question": "Is the ground wet?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "75",
+      "question": "Do you see this flower from the top or the side?",
+      "options": "(a) Top (b) Side",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "76",
+      "question": "Do you see this flower from the top or the side?",
+      "options": "(a) Top (b) Side",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "77",
+      "question": "Can you see the caudal fin of the shark in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "78",
+      "question": "Can you see the caudal fin of the shark in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "79",
+      "question": "In the image, is the snake's head oriented facing upwards or directed forwards?",
+      "options": "(a) Upwards (b) Forward",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "80",
+      "question": "In the image, is the snake's head oriented facing upwards or directed forwards?",
+      "options": "(a) Upwards (b) Forward",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "81",
+      "question": "Is this a hammerhead shark?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "82",
+      "question": "Is this a hammerhead shark?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "83",
+      "question": "Is the door of the truck cab open?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "84",
+      "question": "Is the door of the truck cab open?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "85",
+      "question": "Are the ears of the dog erect or drooping?",
+      "options": "(a) Erect (b) Drooping",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "86",
+      "question": "Are the ears of the dog erect or drooping?",
+      "options": "(a) Erect (b) Drooping",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "87",
+      "question": "Is there a hand using the mouse in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "88",
+      "question": "Is there a hand using the mouse in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "89",
+      "question": "Can you see people in this image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "90",
+      "question": "Can you see people in this image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "91",
+      "question": "Are there any words displayed on the vehicle's lightbar?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "92",
+      "question": "Are there any words displayed on the vehicle's lightbar?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "93",
+      "question": "Is there any accessory on the wrists?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "94",
+      "question": "Is there any accessory on the wrists?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "95",
+      "question": "From the camera's perspective, is the spider web very dense or relatively sparse?",
+      "options": "(a) Very dense (b) Relatively sparse",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "96",
+      "question": "From the camera's perspective, is the spider web very dense or relatively sparse?",
+      "options": "(a) Very dense (b) Relatively sparse",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "97",
+      "question": "Does the keyboard have a backlight?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "98",
+      "question": "Does the keyboard have a backlight?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "99",
+      "question": "Does the elephant have long or short tusks?",
+      "options": "(a) Long (b) Short",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "100",
+      "question": "Does the elephant have long or short tusks?",
+      "options": "(a) Long (b) Short",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "101",
+      "question": "What is the woman more likely to do?",
+      "options": "(a) Bump (b) Set",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "102",
+      "question": "What is the woman more likely to do?",
+      "options": "(a) Bump (b) Set",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "103",
+      "question": "Is the needle pointing up or down?",
+      "options": "(a) Up (b) Down",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "104",
+      "question": "Is the needle pointing up or down?",
+      "options": "(a) Up (b) Down",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "105",
+      "question": "Is the camera positioned at eye level or looking down from above?",
+      "options": "(a) Eye level (b) Above",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "106",
+      "question": "Is the camera positioned at eye level or looking down from above?",
+      "options": "(a) Eye level (b) Above",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "107",
+      "question": "Are the butterfly's feet visible?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "108",
+      "question": "Are the butterfly's feet visible?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "109",
+      "question": "Are the bird's wings flapping upward or downward?",
+      "options": "(a) Upward (b) Downward",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "110",
+      "question": "Are the bird's wings flapping upward or downward?",
+      "options": "(a) Upward (b) Downward",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "111",
+      "question": "Is the end of the elephant's trunk pointing inward or outward?",
+      "options": "(a) Inward (b) Outward",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "112",
+      "question": "Is the end of the elephant's trunk pointing inward or outward?",
+      "options": "(a) Inward (b) Outward",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "113",
+      "question": "Do you see any window in this image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "114",
+      "question": "Do you see any window in this image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "115",
+      "question": "Is the snail in the picture facing the camera or away from the camera?",
+      "options": "(a) Away from the camera (b) Facing the camera ",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "116",
+      "question": "Is the snail in the picture facing the camera or away from the camera?",
+      "options": "(a) Away from the camera (b) Facing the camera ",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "117",
+      "question": "How many eyes of the cat can you see in the picture?",
+      "options": "(a) 1 (b) 2",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "118",
+      "question": "How many eyes of the cat can you see in the picture?",
+      "options": "(a) 1 (b) 2",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "119",
+      "question": "In this image, how many eyes can you see on the animal?",
+      "options": "(a) 1 (b) 2",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "120",
+      "question": "In this image, how many eyes can you see on the animal?",
+      "options": "(a) 1 (b) 2",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "121",
+      "question": "Does this corn have white kernels?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "122",
+      "question": "Does this corn have white kernels?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "123",
+      "question": "Is this duck facing left or right from the camera's perspective?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "124",
+      "question": "Is this duck facing left or right from the camera's perspective?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "125",
+      "question": "Can you see a door in this image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "126",
+      "question": "Can you see a door in this image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "127",
+      "question": "Is the flower's center protruding or indented?",
+      "options": "(a) Protruding (b) Indented",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "128",
+      "question": "Is the flower's center protruding or indented?",
+      "options": "(a) Protruding (b) Indented",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "129",
+      "question": "From the camera's perspective, are the words \"SCHOOL BUS\" in the picture facing straight or oriented at an angle?",
+      "options": "(a) Directly towards the camera (b) At an angle",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "130",
+      "question": "From the camera's perspective, are the words \"SCHOOL BUS\" in the picture facing straight or oriented at an angle?",
+      "options": "(a) Directly towards the camera (b) At an angle",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "131",
+      "question": "Where is the yellow animal's head lying in this image?",
+      "options": "(a) Floor (b) Carpet",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "132",
+      "question": "Where is the yellow animal's head lying in this image?",
+      "options": "(a) Floor (b) Carpet",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "133",
+      "question": "What does the center button say?",
+      "options": "(a) OK/SELECT (b) OK",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "134",
+      "question": "What does the center button say?",
+      "options": "(a) OK/SELECT (b) OK",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "135",
+      "question": "How many cup(s) of drink are there in the image?",
+      "options": "(a) 1 (b) 2",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "136",
+      "question": "How many cup(s) of drink are there in the image?",
+      "options": "(a) 1 (b) 2",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "137",
+      "question": "In the picture, how is the snake primarily positioned?",
+      "options": "(a) Coiled (b) Head extended",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "138",
+      "question": "In the picture, how is the snake primarily positioned?",
+      "options": "(a) Coiled (b) Head extended",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "139",
+      "question": "Can you see the side windows of the vehicles?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "140",
+      "question": "Can you see the side windows of the vehicles?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "141",
+      "question": "Is the elephant's trunk raised or lowered?",
+      "options": "(a) Raised (b) Lowered",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "142",
+      "question": "Is the elephant's trunk raised or lowered?",
+      "options": "(a) Raised (b) Lowered",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "143",
+      "question": "Is the ladybug positioned upright or upside down?",
+      "options": "(a) Upright (b) Upside down",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "144",
+      "question": "Is the ladybug positioned upright or upside down?",
+      "options": "(a) Upright (b) Upside down",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "145",
+      "question": "Is the photo taken looking down from above or looking up from below?",
+      "options": "(a) Looking down from above (b) Looking up from below",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "146",
+      "question": "Is the photo taken looking down from above or looking up from below?",
+      "options": "(a) Looking down from above (b) Looking up from below",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "147",
+      "question": "In the picture, is the snake's head visible or not visible?",
+      "options": "(a) Visible (b) Not visible",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "148",
+      "question": "In the picture, is the snake's head visible or not visible?",
+      "options": "(a) Visible (b) Not visible",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "149",
+      "question": "Is the piano's back panel on the left or right side?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "150",
+      "question": "Is the piano's back panel on the left or right side?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "151",
+      "question": "The image captures a woman running from:",
+      "options": "(a) Back view (b) Side view",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "152",
+      "question": "The image captures a woman running from:",
+      "options": "(a) Back view (b) Side view",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "153",
+      "question": "How many red apples are there in the image?",
+      "options": "(a) One (b) More than one",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "154",
+      "question": "How many red apples are there in the image?",
+      "options": "(a) One (b) More than one",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "155",
+      "question": "Is the vase beside the bedside table or on the windowsill?",
+      "options": "(a) Beside the bedside Table (b) On the Windowsill",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "156",
+      "question": "Is the vase beside the bedside table or on the windowsill?",
+      "options": "(a) Beside the bedside Table (b) On the Windowsill",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "157",
+      "question": "Is the frame at the front of the motorcycle primarily silver or black in color?",
+      "options": "(a) Silver (b) Black",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "158",
+      "question": "Is the frame at the front of the motorcycle primarily silver or black in color?",
+      "options": "(a) Silver (b) Black",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "159",
+      "question": "For the people operating the machine in the image, can you see one arm or both arms?",
+      "options": "(a) One arm (b) Both arms",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "160",
+      "question": "For the people operating the machine in the image, can you see one arm or both arms?",
+      "options": "(a) One arm (b) Both arms",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "161",
+      "question": "Is the minute hand of the clock closer to 12 or closer to 1?",
+      "options": "(a) 12 (b) 1 ",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "162",
+      "question": "Is the minute hand of the clock closer to 12 or closer to 1?",
+      "options": "(a) 12 (b) 1 ",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "163",
+      "question": "Is the Christmas tree positioned in front of a large window or in front of a wall situated between two windows?",
+      "options": "(a) In front of a large window (b) In front of a wall between two windows",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "164",
+      "question": "Is the Christmas tree positioned in front of a large window or in front of a wall situated between two windows?",
+      "options": "(a) In front of a large window (b) In front of a wall between two windows",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "165",
+      "question": "In this image, are the berries placed",
+      "options": "(a) On a dish (b) In bowls of yogurts",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "166",
+      "question": "In this image, are the berries placed",
+      "options": "(a) On a dish (b) In bowls of yogurts",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "167",
+      "question": "Are some fruits cut open or are all the fruits uncut?",
+      "options": "(a) Some are cut open (b) All are uncut",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "168",
+      "question": "Are some fruits cut open or are all the fruits uncut?",
+      "options": "(a) Some are cut open (b) All are uncut",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "169",
+      "question": "Is there a knee visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "170",
+      "question": "Is there a knee visible in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "171",
+      "question": "Does the snowman in the picture have a mouth?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "172",
+      "question": "Does the snowman in the picture have a mouth?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "173",
+      "question": "Is the decoration on the Easter egg flat or raised?",
+      "options": "(a) Flat (b) Raised",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "174",
+      "question": "Is the decoration on the Easter egg flat or raised?",
+      "options": "(a) Flat (b) Raised",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "175",
+      "question": "In the image, is the nail polish on the toes dark or light in color?",
+      "options": "(a) Dark (b) Light",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "176",
+      "question": "In the image, is the nail polish on the toes dark or light in color?",
+      "options": "(a) Dark (b) Light",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "177",
+      "question": "In the picture, is the person facing the ocean or turned sideways to the ocean?",
+      "options": "(a) Facing the ocean (b) Turned sideways to the ocean",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "178",
+      "question": "In the picture, is the person facing the ocean or turned sideways to the ocean?",
+      "options": "(a) Facing the ocean (b) Turned sideways to the ocean",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "179",
+      "question": "How many wheels can you see in the image?",
+      "options": "(a) 1 (b) 2",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "180",
+      "question": "How many wheels can you see in the image?",
+      "options": "(a) 1 (b) 2",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "181",
+      "question": "Is the stripe in the middle of the car blue or white?",
+      "options": "(a) Blue (b) White",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "182",
+      "question": "Is the stripe in the middle of the car blue or white?",
+      "options": "(a) Blue (b) White",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "183",
+      "question": "Are the teddy bears holding hands or leaning against each other?",
+      "options": "(a) Holding hands (b) Leaning against",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "184",
+      "question": "Are the teddy bears holding hands or leaning against each other?",
+      "options": "(a) Holding hands (b) Leaning against",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "185",
+      "question": "Is the person in the picture already standing on the weighing scale?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "186",
+      "question": "Is the person in the picture already standing on the weighing scale?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "187",
+      "question": "In the picture, is the person stretching out one arm or both arms above their head?",
+      "options": "(a) One arm (b) Both arms",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "188",
+      "question": "In the picture, is the person stretching out one arm or both arms above their head?",
+      "options": "(a) One arm (b) Both arms",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "189",
+      "question": "Is the person in the picture on the grass or on the gravel path?",
+      "options": "(a) Grass (b) Gravel path",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "190",
+      "question": "Is the person in the picture on the grass or on the gravel path?",
+      "options": "(a) Grass (b) Gravel path",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "191",
+      "question": "Is there a flower next to the Easter egg in the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "192",
+      "question": "Is there a flower next to the Easter egg in the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "193",
+      "question": "Are these vegetables placed on the floor or on the soil?",
+      "options": "(a) Floor (b) Soil",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "194",
+      "question": "Are these vegetables placed on the floor or on the soil?",
+      "options": "(a) Floor (b) Soil",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "195",
+      "question": "Are juice and all carrots on the same surface?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "196",
+      "question": "Are juice and all carrots on the same surface?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "197",
+      "question": "Is the person weighing themselves barefoot?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "198",
+      "question": "Is the person weighing themselves barefoot?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "199",
+      "question": "Which type of eggs are in the corner of the picture?",
+      "options": "(a) Quail eggs (b) Chicken eggs ",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "200",
+      "question": "Which type of eggs are in the corner of the picture?",
+      "options": "(a) Quail eggs (b) Chicken eggs ",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "201",
+      "question": "What are the words in the image:",
+      "options": "(a) \"Happy Easter\" (b) \"Happy Easter!\"",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "202",
+      "question": "What are the words in the image:",
+      "options": "(a) \"Happy Easter\" (b) \"Happy Easter!\"",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "203",
+      "question": "Are these oranges hanging on the tree?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "204",
+      "question": "Are these oranges hanging on the tree?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "205",
+      "question": "Is the coffee cup made of glass?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "206",
+      "question": "Is the coffee cup made of glass?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "207",
+      "question": "Is the bell pepper in the picture red or yellow?",
+      "options": "(a) Red (b) Yellow",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "208",
+      "question": "Is the bell pepper in the picture red or yellow?",
+      "options": "(a) Red (b) Yellow",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "209",
+      "question": "Is there an orange with leaves next to the cup?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "210",
+      "question": "Is there an orange with leaves next to the cup?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "211",
+      "question": "Is the heart-shaped object resting on the palm or being held by the fingers?",
+      "options": "(a) Palm (b) Fingers",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "212",
+      "question": "Is the heart-shaped object resting on the palm or being held by the fingers?",
+      "options": "(a) Palm (b) Fingers",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "213",
+      "question": "Does the snowman have arms made of branches?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "214",
+      "question": "Does the snowman have arms made of branches?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "215",
+      "question": "Are there black stripes on the roof of the car?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "216",
+      "question": "Are there black stripes on the roof of the car?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "217",
+      "question": "Is the knife laid flat or standing up?",
+      "options": "(a) Flat (b) Standing up",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "218",
+      "question": "Is the knife laid flat or standing up?",
+      "options": "(a) Flat (b) Standing up",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "219",
+      "question": "Is the person in the image running towards or away from the camera?",
+      "options": "(a) Towards (b) Away from",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "220",
+      "question": "Is the person in the image running towards or away from the camera?",
+      "options": "(a) Towards (b) Away from",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "221",
+      "question": "In the photo, is one of the man's hands blocked by the woman?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "222",
+      "question": "In the photo, is one of the man's hands blocked by the woman?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "223",
+      "question": "Is there a pomegranate in the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "224",
+      "question": "Is there a pomegranate in the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "225",
+      "question": "Are all the cups and bottles in the picture the same height?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "226",
+      "question": "Are all the cups and bottles in the picture the same height?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "227",
+      "question": "Does the person in the picture have something in their hand?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "228",
+      "question": "Does the person in the picture have something in their hand?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "229",
+      "question": "Do all the bottles in the picture face the same direction?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "230",
+      "question": "Do all the bottles in the picture face the same direction?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "231",
+      "question": "Are all easter eggs placed in a container (e.g nest, basket)?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "232",
+      "question": "Are all easter eggs placed in a container (e.g nest, basket)?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "233",
+      "question": "Is the sky in the background dark blue or light blue?",
+      "options": "(a) Dark blue (b) Light blue",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "234",
+      "question": "Is the sky in the background dark blue or light blue?",
+      "options": "(a) Dark blue (b) Light blue",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "235",
+      "question": "Do the individuals in the picture face the front or the back?",
+      "options": "(a) Front (b) Back",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "236",
+      "question": "Do the individuals in the picture face the front or the back?",
+      "options": "(a) Front (b) Back",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "237",
+      "question": "Is the ground completely covered by red fallen leaves?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "238",
+      "question": "Is the ground completely covered by red fallen leaves?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "239",
+      "question": "Are the leather shoes placed side by side or is one on top of the other?",
+      "options": "(a) Side by side (b) One on top of the other",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "240",
+      "question": "Are the leather shoes placed side by side or is one on top of the other?",
+      "options": "(a) Side by side (b) One on top of the other",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "241",
+      "question": "Is the photo taken directly above the coffee or from the side?",
+      "options": "(a) Above (b) From the side",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "242",
+      "question": "Is the photo taken directly above the coffee or from the side?",
+      "options": "(a) Above (b) From the side",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "243",
+      "question": "Is the rabbit in the image facing left or right?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "244",
+      "question": "Is the rabbit in the image facing left or right?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "245",
+      "question": "Is the elderly person in the picture standing or sitting?",
+      "options": "(a) Standing (b) Sitting",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "246",
+      "question": "Is the elderly person in the picture standing or sitting?",
+      "options": "(a) Standing (b) Sitting",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "247",
+      "question": "Are there any fruits or vegetables in the heart-shaped part of the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "248",
+      "question": "Are there any fruits or vegetables in the heart-shaped part of the picture?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "249",
+      "question": "Is the very top of the cake strawberries or cream?",
+      "options": "(a) Strawberries (b) Cream",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "250",
+      "question": "Is the very top of the cake strawberries or cream?",
+      "options": "(a) Strawberries (b) Cream",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "251",
+      "question": "Is the beverage in the picture contained in a mug or a glass?",
+      "options": "(a) Mug (b) Glass",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "252",
+      "question": "Is the beverage in the picture contained in a mug or a glass?",
+      "options": "(a) Mug (b) Glass",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "253",
+      "question": "Is the design in the picture Santa Claus or a snowman?",
+      "options": "(a) Santa Claus (b) Snowman",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "254",
+      "question": "Is the design in the picture Santa Claus or a snowman?",
+      "options": "(a) Santa Claus (b) Snowman",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "255",
+      "question": "Are there cookies stacked on top of other cookies?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "256",
+      "question": "Are there cookies stacked on top of other cookies?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "257",
+      "question": "Is there a lemon inside the drink in the cup or are all the lemons outside the drink?",
+      "options": "(a) There is one inside (b) All are outside",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "258",
+      "question": "Is there a lemon inside the drink in the cup or are all the lemons outside the drink?",
+      "options": "(a) There is one inside (b) All are outside",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "259",
+      "question": "In the picture, are the elderly people moving to the left or to the right?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "260",
+      "question": "In the picture, are the elderly people moving to the left or to the right?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "261",
+      "question": "Is the person in the picture sitting on a black or white chair?",
+      "options": "(a) Black (b) White",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "262",
+      "question": "Is the person in the picture sitting on a black or white chair?",
+      "options": "(a) Black (b) White",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "263",
+      "question": "Is it a slice of cake or a whole cake in the picture?",
+      "options": "(a) Slice (b) Whole",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "264",
+      "question": "Is it a slice of cake or a whole cake in the picture?",
+      "options": "(a) Slice (b) Whole",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "265",
+      "question": "Is the shoe in the image tied or untied?",
+      "options": "(a) Tied (b) Untied",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "266",
+      "question": "Is the shoe in the image tied or untied?",
+      "options": "(a) Tied (b) Untied",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "267",
+      "question": "Is the child in the picture facing forward or in profile?",
+      "options": "(a) Facing forward (b) In profile",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "268",
+      "question": "Is the child in the picture facing forward or in profile?",
+      "options": "(a) Facing forward (b) In profile",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "269",
+      "question": "Is the wall behind the bed empty or is there a painting hanging on it?",
+      "options": "(a) Empty (b) A painting hanging on it",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "270",
+      "question": "Is the wall behind the bed empty or is there a painting hanging on it?",
+      "options": "(a) Empty (b) A painting hanging on it",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "271",
+      "question": "Is the male in the picture wearing a shirt or a T-shirt?",
+      "options": "(a) Shirt (b) T-shirt",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "272",
+      "question": "Is the male in the picture wearing a shirt or a T-shirt?",
+      "options": "(a) Shirt (b) T-shirt",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "273",
+      "question": "What pattern is in the picture?",
+      "options": "(a) Pumpkin Lights (b) Bats",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "274",
+      "question": "What pattern is in the picture?",
+      "options": "(a) Pumpkin Lights (b) Bats",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "275",
+      "question": "How many trees are the treehouse built on?",
+      "options": "(a) One (b) More than one",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "276",
+      "question": "How many trees are the treehouse built on?",
+      "options": "(a) One (b) More than one",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "277",
+      "question": "What are all the letter in the image?",
+      "options": "(a) SUGAR (b) UGA",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "278",
+      "question": "What are all the letter in the image?",
+      "options": "(a) SUGAR (b) UGA",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "279",
+      "question": "Is the elderly person standing or sitting in the picture?",
+      "options": "(a) Standing (b) Sitting",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "280",
+      "question": "Is the elderly person standing or sitting in the picture?",
+      "options": "(a) Standing (b) Sitting",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "281",
+      "question": "Are there drinks on the table?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "282",
+      "question": "Are there drinks on the table?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "283",
+      "question": "In the image, is it a salmon fillet or a salmon steak?",
+      "options": "(a) Salmon fillet (b) Salmon steak",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "284",
+      "question": "In the image, is it a salmon fillet or a salmon steak?",
+      "options": "(a) Salmon fillet (b) Salmon steak",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "285",
+      "question": "Do you see a yellow towel in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "286",
+      "question": "Do you see a yellow towel in the image?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "287",
+      "question": "Is the cup placed on a surface or being held by hand?",
+      "options": "(a) Placed on a surface (b) Held by hand",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "288",
+      "question": "Is the cup placed on a surface or being held by hand?",
+      "options": "(a) Placed on a surface (b) Held by hand",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "289",
+      "question": "Is the following statement correct: There are different colors of grapes in the image.",
+      "options": "(a) Correct (b) Incorrect",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "290",
+      "question": "Is the following statement correct: There are different colors of grapes in the image.",
+      "options": "(a) Correct (b) Incorrect",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "291",
+      "question": "Is the minion in the image smiling with its tongue out?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "292",
+      "question": "Is the minion in the image smiling with its tongue out?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "293",
+      "question": "Is the sports car in the picture facing left or right?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "294",
+      "question": "Is the sports car in the picture facing left or right?",
+      "options": "(a) Left (b) Right",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "295",
+      "question": "Is the edge of the heart in the picture white or dark-colored?",
+      "options": "(a) White (b) Dark-colored",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "296",
+      "question": "Is the edge of the heart in the picture white or dark-colored?",
+      "options": "(a) White (b) Dark-colored",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    },
+    {
+      "index": "297",
+      "question": "Are there patterns on the easter eggs?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(a)",
+      "correct": true,
+      "full_response": "A"
+    },
+    {
+      "index": "298",
+      "question": "Are there patterns on the easter eggs?",
+      "options": "(a) Yes (b) No",
+      "prediction": "(a)",
+      "correct_answer": "(b)",
+      "correct": false,
+      "full_response": "A"
+    },
+    {
+      "index": "299",
+      "question": "How would you describe the background of the image?",
+      "options": "(a) Light shining through the clouds from the upper right corner (b) Most of the background is dark and cloudy",
+      "prediction": "(b)",
+      "correct_answer": "(a)",
+      "correct": false,
+      "full_response": "B"
+    },
+    {
+      "index": "300",
+      "question": "How would you describe the background of the image?",
+      "options": "(a) Light shining through the clouds from the upper right corner (b) Most of the background is dark and cloudy",
+      "prediction": "(b)",
+      "correct_answer": "(b)",
+      "correct": true,
+      "full_response": "B"
+    }
+  ]
+}

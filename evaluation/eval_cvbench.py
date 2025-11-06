@@ -18,14 +18,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model-path', type=str, default="./checkpoints/viral-7b", help='path to the model')
-    parser.add_argument('--input_jsonl', type=str, default= "./playground/benchmarks/cvbench/test_2d.jsonl")
-    parser.add_argument('--benchmark_dir', type=str, default="./playground/benchmarks/cvbench")
+    parser.add_argument(
+        "--model-path",
+        type=str,
+        default="/cluster/project/cvg/students/fbondi/sem-project/VIRAL/checkpoints/viral_checkpoints/llava-v1.5-7b-instruct-repa-dino-single-16",
+        help="path to the model",
+    )
+    parser.add_argument(
+        "--input_jsonl",
+        type=str,
+        default="/cluster/project/cvg/students/fbondi/benchmark/cvbench/test_2d.jsonl",
+    )
+    parser.add_argument(
+        "--benchmark_dir",
+        type=str,
+        default="/cluster/project/cvg/students/fbondi/benchmark/cvbench",
+    )
     args = parser.parse_args()
 
-    if 'qwen' in args.model_path:
+    if "qwen" in args.model_path:
         tokenizer, model, image_processor, context_len = load_pretrained_model(
             model_path=args.model_path,
             model_base="Qwen/Qwen2.5-7B-Instruct",
@@ -35,8 +48,16 @@ if __name__ == '__main__':
     else:
         tokenizer, model, image_processor, context_len = load_pretrained_model(
             model_path=args.model_path,
-            model_base="lmsys/vicuna-7b-v1.5" if "7b" in args.model_path else "lmsys/vicuna-13b-v1.5",
-            model_name="llava-v1.5-7b-lora" if "7b" in args.model_path else "llava-v1.5-13b-lora"
+            model_base=(
+                "lmsys/vicuna-7b-v1.5"
+                if "7b" in args.model_path
+                else "lmsys/vicuna-13b-v1.5"
+            ),
+            model_name=(
+                "llava-v1.5-7b-lora"
+                if "7b" in args.model_path
+                else "llava-v1.5-13b-lora"
+            ),
         )
         conv_mode = "llava_v1"
 
@@ -44,7 +65,7 @@ if __name__ == '__main__':
     model.residual = False
     model.residual_target_layers = [16]
     json_data = []
-    with open(args.input_jsonl, 'r') as f:
+    with open(args.input_jsonl, "r") as f:
         for line in f:
             json_data.append(json.loads(line))
 
@@ -60,25 +81,40 @@ if __name__ == '__main__':
     relation_correct = 0
 
     from tqdm import tqdm
-    with open(args.output_path, 'a') as f:
-        for data in tqdm(json_data):
-            image_src = data['filename']
-            image = Image.open(os.path.join(args.benchmark_dir, image_src)).convert('RGB')
-            question = data['prompt']
-            gt_answer = data['answer']
-            task = data['task'].lower()
-            
-            image_tensor = image_processor.preprocess(image, return_tensors='pt')['pixel_values'].half().cuda()
+
+    with open(output_path, "a") as f:
+        for i, data in enumerate(tqdm(json_data)):
+            # Usa l’indice i invece del nome file
+            image_path = os.path.join(args.benchmark_dir, "img/2D", f"{i:06}.png")
+            if not os.path.exists(image_path):
+                print(f"[WARN] Missing image: {image_path}")
+                continue
+            image = Image.open(image_path).convert("RGB")
+            question = data["prompt"]
+            gt_answer = data["answer"]
+            task = data["task"].lower()
+
+            image_tensor = (
+                image_processor.preprocess(image, return_tensors="pt")["pixel_values"]
+                .half()
+                .cuda()
+            )
             conv = conv_templates[conv_mode].copy()
 
             question += "\nBase your answer on reasoning. Your final answer must be only the single capital letter corresponding to the correct choice."
             prompt = question
-            inp = DEFAULT_IMAGE_TOKEN + '\n' + prompt
+            inp = DEFAULT_IMAGE_TOKEN + "\n" + prompt
             conv.append_message(conv.roles[0], inp)
             conv.append_message(conv.roles[1], None)
             prompt = conv.get_prompt()
-        
-            input_ids = tokenizer_image_token(prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors='pt').unsqueeze(0).cuda()
+
+            input_ids = (
+                tokenizer_image_token(
+                    prompt, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt"
+                )
+                .unsqueeze(0)
+                .cuda()
+            )
             temperature = 0.1
             max_new_tokens = 10
 
@@ -93,10 +129,13 @@ if __name__ == '__main__':
                     use_cache=True,
                 )
 
-            output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)  
+            output_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
             model_answer = output_text.strip()
 
-            is_correct = (model_answer.lower() == gt_answer.replace("(", "").replace(")", "").strip().lower())
+            is_correct = (
+                model_answer.lower()
+                == gt_answer.replace("(", "").replace(")", "").strip().lower()
+            )
             correct += int(is_correct)
             total += 1
 
@@ -109,16 +148,24 @@ if __name__ == '__main__':
                 if is_correct:
                     relation_correct += 1
 
-            f.write(json.dumps({
-                "filename": image_src,
-                "question": question,
-                "gt_answer": gt_answer,
-                "model_answer": model_answer,
-                "is_correct": is_correct
-            }) + '\n')
-
+            f.write(
+                json.dumps(
+                    {
+                        "filename": image_path,
+                        "question": question,
+                        "gt_answer": gt_answer,
+                        "model_answer": model_answer,
+                        "is_correct": is_correct,
+                    }
+                )
+                + "\n"
+            )
 
         accuracy = correct / total * 100
         print(f"{os.path.basename(args.model_path)} || Accuracy: {accuracy:.2f}%")
-        print(f"{os.path.basename(args.model_path)} || COUNT :: {count_correct}/{count_total}")
-        print(f"{os.path.basename(args.model_path)} || RELATION :: {relation_correct}/{relation_total}")
+        print(
+            f"{os.path.basename(args.model_path)} || COUNT :: {count_correct}/{count_total}"
+        )
+        print(
+            f"{os.path.basename(args.model_path)} || RELATION :: {relation_correct}/{relation_total}"
+        )
