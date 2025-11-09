@@ -110,6 +110,37 @@ attn_list = outputs.attentions
 print(f"[INFO] Got attention from {len(attn_list)} layers")
 
 # ^ ----------------------------
+# ^ GENERATE MODEL RESPONSE (SECONDA CHIAMATA)
+# ^ ----------------------------
+print("\n[INFO] Generating model response...")
+with torch.inference_mode():
+    outputs_generation = model.generate(  # ← Seconda chiamata separata
+        inputs=input_ids,
+        images=pixel_values,
+        do_sample=False,
+        temperature=0.2,
+        top_p=None,
+        max_new_tokens=512,
+        use_cache=True,
+    )
+
+# Estrai la risposta
+output_sequences = getattr(outputs_generation, "sequences", outputs_generation)
+output_text = tokenizer.decode(output_sequences[0], skip_special_tokens=True)
+
+# Parse la risposta dal template
+if conv.sep_style == SeparatorStyle.TWO:
+    response = output_text.split(conv.sep2)[-1].strip()
+elif conv.sep_style == SeparatorStyle.LLAMA_2:
+    response = output_text.split(conv.roles[1] + ":")[-1].strip()
+else:
+    response = output_text.split(conv.roles[1] + ":")[-1].strip()
+
+print(f"[INFO] Prompt: {PROMPT}")
+print(f"[INFO] Response: {response}")
+generated_text = response
+
+# ^ ----------------------------
 # ^ TROVA LE POSIZIONI DEI TOKEN VISIVI
 # ^ ----------------------------
 def find_vision_token_positions_correct(input_ids, num_vis_tokens, attn_seq_len):
@@ -377,38 +408,66 @@ def create_attention_overlay(img_pil, attn_map, alpha=0.5, colormap="jet"):
 
     return overlay, attn_resized
 
+print("\n[INFO] Creating visualization with prompt and response...")
 
-# Crea visualizzazione
 overlay, attn_resized = create_attention_overlay(image, attn_map_normalized, alpha=0.4)
 
-# Plot
-fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+fig = plt.figure(figsize=(20, 6))
+gs = fig.add_gridspec(2, 4, width_ratios=[1, 1, 1, 0.8], height_ratios=[1, 0.15], 
+                      hspace=0.35, wspace=0.25)
 
-# Original image
-axes[0].imshow(image)
-axes[0].set_title("Original Image")
-axes[0].axis("off")
+# ^ --- IMMAGINI (top row) ---
+ax1 = fig.add_subplot(gs[0, 0])
+ax1.imshow(image)
+ax1.set_title("Original Image", fontsize=11, pad=8)
+ax1.axis("off")
 
-# Attention map
-im = axes[1].imshow(attn_map, cmap="hot", interpolation="nearest")
-axes[1].set_title(f"Attention Map (Layer {LAYER_IDX})")
-axes[1].axis("off")
-plt.colorbar(im, ax=axes[1], fraction=0.046)
+ax2 = fig.add_subplot(gs[0, 1])
+im = ax2.imshow(attn_map_normalized, cmap="hot", interpolation="nearest")
+ax2.set_title(f"Attention Map (Layer {LAYER_IDX})", fontsize=11, pad=8)
+ax2.axis("off")
+plt.colorbar(im, ax=ax2, fraction=0.046, pad=0.04)
 
-# Overlay
-axes[2].imshow(overlay)
-axes[2].set_title(f"Attention Overlay (Layer {LAYER_IDX})")
-axes[2].axis("off")
+ax3 = fig.add_subplot(gs[0, 2])
+ax3.imshow(overlay)
+ax3.set_title("Attention Overlay", fontsize=11, pad=8)
+ax3.axis("off")
 
-plt.suptitle(
-    f"Cross-Modal Attention Analysis - {MODEL_PATH.split('/')[-1]}", fontsize=14
-)
-plt.tight_layout()
+# ^ --- INFO PANEL (right side) ---
+ax_info = fig.add_subplot(gs[0, 3])
+ax_info.axis('off')
+
+import textwrap
+
+def wrap_text(text, width=55):
+    return "\n".join(textwrap.wrap(text, width=width))
+
+info_text = f"""PROMPT:
+{wrap_text(PROMPT, width=60)}
+
+RESPONSE:
+{wrap_text(generated_text, width=60)}
+"""
+
+ax_info.text(0.05, 0.95, info_text,
+            ha='left', va='top', fontsize=9, family='monospace',
+            transform=ax_info.transAxes,
+            bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.5))
+
+# ^ --- FOOTER (bottom) ---
+now = datetime.now()
+timestamp = now.strftime("%Y%m%d-%H%M%S")
+ax_footer = fig.add_subplot(gs[1, :])
+ax_footer.axis('off')
+footer = f"Model: {MODEL_PATH.split('/')[-1]} | Image: {IMAGE_PATH.split('/')[-1]} | {timestamp}"
+ax_footer.text(0.5, 0.5, footer, ha='center', va='center', 
+              fontsize=9, style='italic', transform=ax_footer.transAxes)
+
+plt.suptitle("Cross-Modal Attention Visualization", fontsize=14, fontweight='bold', y=0.98)
 
 # Save
 os.makedirs("./outputs/attn_viz", exist_ok=True)
-now = datetime.now()
-timestamp = now.strftime("%Y%m%d-%H%M%S")
+
 out_path = f"./outputs/attn_viz/attention_layer_{LAYER_IDX}_analysis_{timestamp}.png"
 plt.savefig(out_path, dpi=150, bbox_inches="tight")
 plt.show()

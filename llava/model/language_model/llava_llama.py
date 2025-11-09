@@ -656,6 +656,10 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             output = (logits,) + outputs[1:]
             return (loss,) + output if loss is not None else output
 
+        # ^ IMPLEMENTO QUI LA CONTRASTIVE LOSS DI EGOLIFTER
+        # ^ Da aggiungere anche nel file di config
+        # contrastive_loss = 0
+
         return CausalLMOutputWithPast(
             loss=loss,
             logits=logits,
