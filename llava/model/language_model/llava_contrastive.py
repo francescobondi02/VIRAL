@@ -75,9 +75,14 @@ class LLaVAContrastiveManager:
     def _downsample_mask(self, mask: np.ndarray, target_hw: Tuple[int, int]) -> torch.Tensor:
         """Downsample mask usando nearest neighbor"""
         h, w = target_hw
-        mask_img = Image.fromarray(mask.astype(np.uint8) * 255)
-        mask_resized = mask_img.resize((w, h), resample=Image.NEAREST)
-        return torch.from_numpy(np.array(mask_resized) > 127)
+        # Usa torch direttamente (più veloce)
+        mask_torch = torch.from_numpy(mask.astype(np.float32))
+        mask_resized = F.interpolate(
+            mask_torch.unsqueeze(0).unsqueeze(0),  # (1, 1, H, W)
+            size=(h, w),
+            mode='nearest'
+        ).squeeze(0).squeeze(0)  # (H, W)
+        return mask_resized > 0.5
     
     def compute_loss(
         self,
@@ -192,7 +197,7 @@ class LLaVAContrastiveManager:
         Z = prob_before_norm.sum(dim=-1)  # (N,) denominatore
         p = torch.mul(prob_before_norm, sim_masks).sum(dim=-1)  # (N,) numeratore (solo positive)
         
-        prob = torch.div(p, Z + 1e-8)  # (N,)
+        prob = torch.div(p, Z.clamp(min=1e-6))  # clamp invece di +epsilon
         prob_masked = torch.masked_select(prob, prob.ne(0))  # Rimuovi zeri
         
         if prob_masked.numel() == 0:
@@ -255,7 +260,8 @@ class LLaVAContrastiveManager:
         
         # Campiona casualmente se troppi
         if valid_indices.numel() > self.n_samples:
-            perm = torch.randperm(valid_indices.numel())[:self.n_samples]
+            # FIX: Usa lo stesso device di valid_indices
+            perm = torch.randperm(valid_indices.numel(), device=valid_indices.device)[:self.n_samples]
             sampled_indices = valid_indices[perm]
         else:
             sampled_indices = valid_indices

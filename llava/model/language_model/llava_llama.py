@@ -766,7 +766,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             print(f"Diffusion loss: {diffusion_loss} || NTP loss: {loss}")
             if is_main_process():
                 wandb.log({"diffusion loss": diffusion_loss.item()})
-                wandb.log({"ntp loss": loss.item()})
+                # wandb.log({"ntp loss": loss.item()})
             loss = loss + self.diffusion_weight * diffusion_loss
 
         # ^ IMPLEMENTO QUI LA CONTRASTIVE LOSS DI EGOLIFTER
@@ -774,7 +774,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             print(f"Contrastive loss: {contrastive_loss_value.item():.4f} || NTP loss: {loss.item():.4f}")
             if is_main_process() and self.training:
                 wandb.log({"contrastive_loss": contrastive_loss_value.item()})
-                wandb.log({"ntp_loss": loss.item()})
+                # wandb.log({"ntp_loss": loss.item()})
             
             # Aggiungi alla loss totale
             loss = loss + self.contrastive_weight * contrastive_loss_value

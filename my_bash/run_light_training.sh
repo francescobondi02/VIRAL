@@ -2,7 +2,7 @@
 #SBATCH --job-name=train_with_cl
 #SBATCH --output=logs/train_with_cl_%j.out
 #SBATCH --error=logs/train_with_cl_%j.err
-#SBATCH --time=00:20:00
+#SBATCH --time=01:00:00
 #SBATCH --gpus=a100:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem-per-cpu=4G
