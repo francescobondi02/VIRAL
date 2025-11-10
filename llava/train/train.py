@@ -36,6 +36,7 @@ from llava.model import *
 from llava.mm_utils import tokenizer_image_token
 
 from PIL import Image
+import numpy as np
 
 
 local_rank = None
@@ -74,6 +75,9 @@ class DataArguments:
     image_folder: Optional[str] = field(default=None)
     image_aspect_ratio: str = 'square'
 
+    # ^ Add for Contrastive Loss
+    use_contrastive_loss: bool = field(default=False)
+    coco_ann_path: Optional[str] = field(default=None)
 
 @dataclass
 class TrainingArguments(transformers.TrainingArguments):
@@ -766,6 +770,7 @@ class LazySupervisedDataset(Dataset):
         list_data_dict = json.load(open(data_path, "r"))
 
         self.valid_indices = []
+        print(f"[LazySupervisedDataset] Image Path: {data_args.image_folder}")
         if data_args.is_multimodal:
             for i, item in enumerate(list_data_dict):
                 if 'image' in item:
@@ -783,6 +788,33 @@ class LazySupervisedDataset(Dataset):
         self.tokenizer = tokenizer
         self.list_data_dict = list_data_dict
         self.data_args = data_args
+
+        self.use_contrastive = getattr(data_args, 'use_contrastive_loss', False)
+        self.coco_ann = None
+        self.refcoco_ann = None
+        
+        if self.use_contrastive:
+            # Conta quanti sample COCO/RefCOCO ci sono
+            coco_count = sum(1 for idx in self.valid_indices 
+                           if 'image' in self.list_data_dict[idx] and 
+                           self.list_data_dict[idx]['image'].startswith('coco'))
+            refcoco_count = sum(1 for idx in self.valid_indices 
+                              if 'image' in self.list_data_dict[idx] and 
+                              'refcoco' in self.list_data_dict[idx]['image'].lower())
+            
+            rank0_print(f"[Contrastive Loss] Found {coco_count} COCO samples, {refcoco_count} RefCOCO samples")
+            
+            # Carica COCO annotations (lazy loading)
+            if coco_count > 0:
+                try:
+                    from pycocotools.coco import COCO
+                    coco_ann_path = getattr(data_args, 'coco_ann_path', 
+                                           '/cluster/project/cvg/data/mscoco/annotations/instances_train2017.json')
+                    self.coco_ann = COCO(coco_ann_path)
+                    rank0_print(f"[Contrastive Loss] Loaded COCO annotations from {coco_ann_path}")
+                except Exception as e:
+                    rank0_print(f"[WARNING] Failed to load COCO annotations: {e}")
+                    self.use_contrastive = False
 
     def __len__(self):
         return len(self.valid_indices)
@@ -815,6 +847,7 @@ class LazySupervisedDataset(Dataset):
         assert len(sources) == 1, "Don't know why it is wrapped to a list"  # FIXME
         
         coco_flag = False
+        segmentation_masks = None
         if 'image' in sources[0]:
             image_file = self.list_data_dict[real_idx]['image']
             image_folder = self.data_args.image_folder
@@ -841,6 +874,14 @@ class LazySupervisedDataset(Dataset):
                 copy.deepcopy([e["conversations"] for e in sources]),
                 self.data_args)
 
+            # ^ Carica Masks
+            if self._should_use_contrastive(image_file):
+                segmentation_masks = self._load_coco_masks(image_file)
+                
+                # Debug: stampa ogni tanto
+                if i % 1000 == 0 and len(segmentation_masks) > 0:
+                    rank0_print(f"[DEBUG] Sample {i}: Loaded {len(segmentation_masks)} masks for {image_file}")
+
             ## For COCO
             if self.list_data_dict[real_idx]['image'].startswith('coco'):
                 coco_flag=True
@@ -865,7 +906,64 @@ class LazySupervisedDataset(Dataset):
             data_dict['image'] = torch.zeros(3, crop_size['height'], crop_size['width'])
         
         data_dict['is_coco'] = coco_flag
+        data_dict['segmentation_masks'] = segmentation_masks
         return data_dict
+
+    def _load_coco_masks(self, image_filename: str) -> List[np.ndarray]:
+        """
+        Carica maschere di segmentazione COCO per un'immagine
+        
+        Args:
+            image_filename: es. "coco/train2017/000000123456.jpg"
+            
+        Returns:
+            Lista di maschere numpy (H, W) bool, una per oggetto
+        """
+        if self.coco_ann is None:
+            return []
+        
+        try:
+            # Estrai image_id dal filename
+            # Format: "coco/train2017/000000123456.jpg" -> 123456
+            image_id_str = image_filename.split('/')[-1].replace('.jpg', '')
+            image_id = int(image_id_str)
+            
+            # Ottieni annotations per questa immagine
+            ann_ids = self.coco_ann.getAnnIds(imgIds=[image_id])
+            anns = self.coco_ann.loadAnns(ann_ids)
+            
+            # Converti in maschere
+            masks = []
+            for ann in anns:
+                mask = self.coco_ann.annToMask(ann)
+                
+                # Filtra oggetti troppo piccoli (< 50 pixel)
+                if mask.sum() >= 50:
+                    masks.append(mask.astype(bool))
+            
+            return masks
+            
+        except Exception as e:
+            # Se fallisce (es. image_id non trovato), ritorna lista vuota
+            # print(f"[WARNING] Failed to load masks for {image_filename}: {e}")
+            return []
+    
+    def _should_use_contrastive(self, image_filename: str) -> bool:
+        """
+        Determina se applicare contrastive loss per questa immagine
+        """
+        if not self.use_contrastive:
+            return False
+        
+        # COCO images
+        if image_filename.startswith('coco'):
+            return True
+        
+        # RefCOCO images (opzionale per futuro)
+        # if 'refcoco' in image_filename.lower():
+        #     return True
+        
+        return False
 
 # class LazySupervisedDataset(Dataset):
 #     """Dataset for supervised fine-tuning."""
@@ -984,6 +1082,11 @@ class DataCollatorForSupervisedDataset(object):
         
         is_coco = [instance.get('is_coco', False) for instance in instances]
         batch['is_coco'] = torch.tensor(is_coco, dtype=torch.bool)
+
+        # ^ Add for contrastive loss
+        if 'segmentation_masks' in instances[0]:
+            # Lista di liste: batch_size x [maschere per sample]
+            batch['segmentation_masks'] = [instance['segmentation_masks'] for instance in instances]
         
         return batch
 
@@ -1198,6 +1301,34 @@ def train(attn_implementation=None):
                 if hasattr(module, 'weight'):
                     if training_args.bf16 and module.weight.dtype == torch.float32:
                         module = module.to(torch.bfloat16)
+
+    # ^ ========================================
+    # ^ SINCRONIZZA CONFIG CON DATA_ARGS PRIMA DI MANDARLI A DATALOADER
+    # ^ ========================================
+    # Se il config ha contrastive_loss abilitato, sincronizza con data_args
+    if hasattr(config, 'contrastive_loss') and config.contrastive_loss:
+        # Abilita nel dataset
+        data_args.use_contrastive_loss = True
+        
+        # Assicurati che il path annotations sia settato
+        if not hasattr(data_args, 'coco_ann_path') or data_args.coco_ann_path is None:
+            data_args.coco_ann_path = "/cluster/project/cvg/data/mscoco/annotations/instances_train2017.json"
+        
+        # Log per debug
+        rank0_print("="*60)
+        rank0_print("[CONTRASTIVE LOSS] Configuration from config.json:")
+        rank0_print(f"  Enabled: {config.contrastive_loss}")
+        rank0_print(f"  Weight: {config.contrastive_weight}")
+        rank0_print(f"  Temperature: {config.contrastive_temperature}")
+        rank0_print(f"  N Samples: {config.contrastive_n_samples}")
+        rank0_print(f"  Sum in Log: {config.contrastive_sum_in_log}")
+        rank0_print(f"  COCO Annotations: {data_args.coco_ann_path}")
+        rank0_print("="*60)
+    else:
+        # Disabilita contrastive loss
+        data_args.use_contrastive_loss = False
+        rank0_print("[INFO] Contrastive Loss: DISABLED (not in config or set to false)")
+    # ^ ========================================
 
     data_module = make_supervised_data_module(tokenizer=tokenizer,
                                               data_args=data_args)

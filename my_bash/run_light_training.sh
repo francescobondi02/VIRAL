@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=light_training
-#SBATCH --output=logs/light_training_%j.out
-#SBATCH --error=logs/light_training_%j.err
+#SBATCH --job-name=train_with_cl
+#SBATCH --output=logs/train_with_cl_%j.out
+#SBATCH --error=logs/train_with_cl_%j.err
 #SBATCH --time=00:20:00
 #SBATCH --gpus=a100:1
 #SBATCH --cpus-per-task=8
@@ -95,7 +95,7 @@ deepspeed --include localhost:0 --master_port=29503 llava/train/train_mem.py \
     --image_aspect_ratio pad \
     --group_by_modality_length True \
     --bf16 True \
-    --output_dir ./checkpoints/llava-v1.5-7b-viral-test-a100 \
+    --output_dir ./checkpoints/llava-custom-trained \
     --num_train_epochs 1 \
     --per_device_train_batch_size 4 \
     --per_device_eval_batch_size 4 \

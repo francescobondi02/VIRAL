@@ -47,6 +47,9 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 import numpy as np
 
+# ^ Contrastive Loss add
+from .llava_contrastive import LLaVAContrastiveManager
+
 def visualize_feature_pca(features, save_path='feature.png'):
     # CPU로 이동하고 numpy로 변환
     features_np = features.float().squeeze(0).detach().cpu().numpy()
@@ -274,6 +277,26 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             self.diffusion_weight = config.diffusion_weight if hasattr(config, 'diffusion_weight') else 1.0
         assert not(self.vra_loss & self.residual), "vra loss and residual cannot be true at same time"
         self.residual_target_layers = config.residual_target_layers if hasattr(config, 'residual_target_layers') else None
+        # ^ Aggiunta per Contrastive Loss
+        self.contrastive_loss = config.contrastive_loss if hasattr(config, "contrastive_loss") else False
+        if self.contrastive_loss:
+            self.contrastive_weight = config.contrastive_weight if hasattr(config, "contrastive_weight") else 0.1
+            self.contrastive_temperature = config.contrastive_temperature if hasattr(config, "contrastive_temperature") else 0.07
+            self.contrastive_n_samples = config.contrastive_n_samples if hasattr(config, "contrastive_n_samples") else 256
+            self.contrastive_sum_in_log = config.contrastive_sum_in_log if hasattr(config, "contrastive_sum_in_log") else True
+
+            # Inizializza il ContrastiveManager
+            self.contrast_manager = LLaVAContrastiveManager(
+                temperature=self.contrastive_temperature,
+                n_samples=self.contrastive_n_samples,
+                sum_in_log=self.contrastive_sum_in_log,
+                sim_exp=1.0,
+                min_pixels_per_object=5,
+                use_multilabel=False,
+            )
+            print(f"[INFO] ContrastiveManager initialized with temperature={self.contrastive_temperature}, "
+                f"n_samples={self.contrastive_n_samples}, weight={self.contrastive_weight}")
+        # ^ Aggiunta per Contrastive Loss
         if self.vra_loss:
             self.only_coco = config.only_coco if hasattr(config, 'only_coco') else False
             self.target_layers = config.target_layers if hasattr(config, 'target_layers') else [15,16]
@@ -414,6 +437,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         image_sizes: Optional[List[List[int]]] = None,
         return_dict: Optional[bool] = None,
         is_coco = None,
+        segmentation_masks: Optional[List[List[np.ndarray]]] = None,
     ) -> Union[Tuple, CausalLMOutputWithPast]:
         r"""
         Args:
@@ -602,7 +626,100 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                             raise ValueError(f"Unknown alignment loss: {self.alignment_loss}")
             if valid_batch_count > 0:
                 vra_loss /= (valid_batch_count * len(self.target_layers))
-            
+
+        # ^ Contrastive Loss computation
+        contrastive_loss_value = torch.tensor(0.0, device=hidden_states.device)
+    
+        if self.contrastive_loss and self.training:
+            # Solo durante training e se le maschere sono fornite
+            if segmentation_masks is not None and len(segmentation_masks) > 0:
+                print(f"[DEBUG] Computing contrastive loss with {len(segmentation_masks)} batches")
+                
+                # Estrai vision features dal vision tower
+                vision_tower = self.model.vision_tower
+                if vision_tower is not None and images is not None:
+                    try:
+                        # Forward pass attraverso il vision encoder
+                        with torch.no_grad():
+                            # Usa lo stesso preprocessing del vision tower
+                            if hasattr(vision_tower, 'image_processor'):
+                                # Se hai già preprocessato, usa direttamente images
+                                vision_features = vision_tower(images)  # (B, 577, D) o (B, 576, D)
+                            else:
+                                # Altrimenti preprocessa prima
+                                images_resized = F.interpolate(images, size=(336, 336), mode="bilinear")
+                                vision_features = vision_tower(images_resized)
+                        
+                        # vision_features shape: (B, seq_len, D)
+                        # seq_len può essere 577 (con CLS) o 576 (senza CLS)
+                        
+                        batch_size = vision_features.size(0)
+                        
+                        # Trova dove sono i vision tokens nella sequenza
+                        img_token_positions = img_token_where  # Già calcolato prima
+                        
+                        # Calcola loss per ogni sample nel batch
+                        total_contrast_loss = 0.0
+                        valid_samples = 0
+                        
+                        for b in range(batch_size):
+                            # Verifica che questo sample abbia vision tokens
+                            if not img_token_positions[b].any():
+                                continue
+                            
+                            # Estrai le features vision per questo sample
+                            vision_feats_b = vision_features[b]  # (seq_len, D)
+                            
+                            # Rimuovi CLS token se presente
+                            seq_len = vision_feats_b.size(0)
+                            if seq_len == 577:
+                                vision_feats_b = vision_feats_b[1:]  # Rimuovi CLS, ora (576, D)
+                            
+                            # Reshape in griglia 2D (24x24 per CLIP)
+                            grid_size = int(np.sqrt(vision_feats_b.size(0)))
+                            vision_feats_2d = vision_feats_b.view(grid_size, grid_size, -1)  # (24, 24, D)
+                            
+                            # Ottieni le maschere per questo sample
+                            masks_b = segmentation_masks[b] if b < len(segmentation_masks) else []
+                            
+                            if masks_b is None or (isinstance(masks_b, list) and len(masks_b) == 0):
+                                print(f"[DEBUG] Sample {b}: No masks provided, skipping")
+                                continue
+                            
+                            print(f"[DEBUG] Sample {b}: Processing {len(masks_b)} masks")
+                            # Calcola contrastive loss
+                            try:
+                                loss_b = self.contrast_manager.forward(
+                                    features=vision_feats_2d,
+                                    masks=masks_b,
+                                    feature_hw=(grid_size, grid_size)
+                                )
+                                
+                                if loss_b.item() > 0:
+                                    total_contrast_loss += loss_b
+                                    valid_samples += 1
+                                    print(f"[DEBUG] Sample {b}: contrastive_loss={loss_b.item():.4f}, num_objects={len(masks_b)}")
+                            except Exception as e:
+                                print(f"[WARNING] Failed to compute contrastive loss for sample {b}: {e}")
+                                continue
+                        
+                        # Media sul batch
+                        if valid_samples > 0:
+                            contrastive_loss_value = total_contrast_loss / valid_samples
+                            print(f"[INFO] Contrastive loss: {contrastive_loss_value.item():.4f} "
+                                f"(averaged over {valid_samples}/{batch_size} samples)")
+                        else:
+                            print(f"[WARNING] No valid samples for contrastive loss in this batch")
+                        
+                    except Exception as e:
+                        print(f"[ERROR] Failed to compute contrastive loss: {e}")
+                        import traceback
+                        traceback.print_exc()
+                else:
+                    print(f"[WARNING] Vision tower or images not available for contrastive loss")
+            else:
+                print(f"[DEBUG] Contrastive loss skipped: segmentation_masks={'provided' if segmentation_masks else 'None'}")
+        # ^ Contrastive Loss computation
             
         if self.config.pretraining_tp > 1:
             lm_head_slices = self.lm_head.weight.split(self.vocab_size // self.config.pretraining_tp, dim=0)
@@ -651,14 +768,23 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                 wandb.log({"diffusion loss": diffusion_loss.item()})
                 wandb.log({"ntp loss": loss.item()})
             loss = loss + self.diffusion_weight * diffusion_loss
-        
+
+        # ^ IMPLEMENTO QUI LA CONTRASTIVE LOSS DI EGOLIFTER
+        if self.contrastive_loss and contrastive_loss_value.item() > 0:
+            print(f"Contrastive loss: {contrastive_loss_value.item():.4f} || NTP loss: {loss.item():.4f}")
+            if is_main_process() and self.training:
+                wandb.log({"contrastive_loss": contrastive_loss_value.item()})
+                wandb.log({"ntp_loss": loss.item()})
+            
+            # Aggiungi alla loss totale
+            loss = loss + self.contrastive_weight * contrastive_loss_value
+            
+            print(f"Total loss: {loss.item():.4f} "
+                f"(NTP + {self.contrastive_weight} * Contrastive)")
+
         if not return_dict:
             output = (logits,) + outputs[1:]
             return (loss,) + output if loss is not None else output
-
-        # ^ IMPLEMENTO QUI LA CONTRASTIVE LOSS DI EGOLIFTER
-        # ^ Da aggiungere anche nel file di config
-        # contrastive_loss = 0
 
         return CausalLMOutputWithPast(
             loss=loss,
