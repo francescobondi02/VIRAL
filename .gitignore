@@ -15,3 +15,5 @@ __pycache__/
 outputs/analysis/
 outputs/features/
 outputs/features-simple/
+outputs/attn_viz/
+outputs/attention_arrays/
