@@ -29,7 +29,7 @@ import tokenizers
 
 from llava.constants import IGNORE_INDEX, IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
 from torch.utils.data import Dataset
-from llava.train.llava_trainer import LLaVATrainer
+from llava.train.llava_trainer import LLaVATrainer # * Handles the training loop
 
 from llava import conversation as conversation_lib
 from llava.model import *
@@ -38,9 +38,7 @@ from llava.mm_utils import tokenizer_image_token
 from PIL import Image
 import numpy as np
 
-
 local_rank = None
-
 
 def rank0_print(*args):
     if local_rank == 0:
@@ -49,7 +47,6 @@ def rank0_print(*args):
 
 from packaging import version
 IS_TOKENIZER_GREATER_THAN_0_14 = version.parse(tokenizers.__version__) >= version.parse('0.14')
-
 
 @dataclass
 class ModelArguments:
@@ -75,8 +72,8 @@ class DataArguments:
     image_folder: Optional[str] = field(default=None)
     image_aspect_ratio: str = 'square'
 
-    # ^ Add for Contrastive Loss
-    use_contrastive_loss: bool = field(default=False)
+    # * Add for Contrastive Loss
+    contrastive_loss: bool = field(default=False)
     coco_ann_path: Optional[str] = field(default=None)
 
 @dataclass
@@ -789,11 +786,11 @@ class LazySupervisedDataset(Dataset):
         self.list_data_dict = list_data_dict
         self.data_args = data_args
 
-        self.use_contrastive = getattr(data_args, 'use_contrastive_loss', False)
+        self.contrastive_loss = getattr(data_args, 'contrastive_loss', True)
         self.coco_ann = None
         self.refcoco_ann = None
         
-        if self.use_contrastive:
+        if self.contrastive_loss:
             # Conta quanti sample COCO/RefCOCO ci sono
             coco_count = sum(1 for idx in self.valid_indices 
                            if 'image' in self.list_data_dict[idx] and 
@@ -814,7 +811,7 @@ class LazySupervisedDataset(Dataset):
                     rank0_print(f"[Contrastive Loss] Loaded COCO annotations from {coco_ann_path}")
                 except Exception as e:
                     rank0_print(f"[WARNING] Failed to load COCO annotations: {e}")
-                    self.use_contrastive = False
+                    self.contrastive_loss = False
 
     def __len__(self):
         return len(self.valid_indices)
@@ -839,6 +836,8 @@ class LazySupervisedDataset(Dataset):
         return length_list
 
     def __getitem__(self, i) -> Dict[str, torch.Tensor]:
+        # * Function that builds the sample
+        # print(f"[NAVIGATION] INSIDE __getitem__ of LazySupervisedDataset")
         real_idx = self.valid_indices[i]
         sources = self.list_data_dict[real_idx]
         
@@ -853,6 +852,9 @@ class LazySupervisedDataset(Dataset):
             image_folder = self.data_args.image_folder
             processor = self.data_args.image_processor
             image = Image.open(os.path.join(image_folder, image_file)).convert('RGB')
+            original_image = image.copy()
+
+            # * Most common case of image aspect ratio handling
             if self.data_args.image_aspect_ratio == 'pad':
                 def expand2square(pil_img, background_color):
                     width, height = pil_img.size
@@ -869,25 +871,47 @@ class LazySupervisedDataset(Dataset):
                 image = expand2square(image, tuple(int(x*255) for x in processor.image_mean))
                 image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
             else:
+                # * More critical scenario, the image will be DISTORTED
                 image = processor.preprocess(image, return_tensors='pt')['pixel_values'][0]
             sources = preprocess_multimodal(
                 copy.deepcopy([e["conversations"] for e in sources]),
                 self.data_args)
 
-            # ^ Carica Masks
+            # * Carica Masks
             if self._should_use_contrastive(image_file):
+                # print(f"[INFO] Loading COCO masks for {image_file}")
                 segmentation_masks = self._load_coco_masks(image_file)
+
+                # * Need to convert segmentation_masks into patch_labels (since the model works with patches)
+                #patch_labels = self._build_patch_labels(segmentation_masks) # ^ LongTensor (576,) it's a flattened 24x24 grid for LLaVa (each patch has a value which is the corresponding object in the patch)
+                #data_dict['patch_labels'] = patch_labels
+
+                if segmentation_masks:
+                    if hasattr(processor, 'crop_size'):
+                        img_size = processor.crop_size['height']
+                    else:
+                        img_size = 336
+
+                    # ← PASSA L'IMMAGINE ORIGINALE per gestire aspect ratio
+                    patch_labels = self._build_patch_labels(
+                        segmentation_masks,
+                        original_image,  # ← CRITICO!
+                        image_size=img_size,
+                        overlap_threshold=0.1
+                    )
                 
-                # Debug: stampa ogni tanto
+                # ^ Debug: stampa ogni tanto
                 if i % 1000 == 0 and len(segmentation_masks) > 0:
-                    rank0_print(f"[DEBUG] Sample {i}: Loaded {len(segmentation_masks)} masks for {image_file}")
+                    pass
+                    # print(f"[DEBUG] Sample {i}: Loaded {len(segmentation_masks)} masks for {image_file}")
+                    # print(f"[DEBUG] First mask shape: {segmentation_masks[0].shape}")
 
             ## For COCO
             if self.list_data_dict[real_idx]['image'].startswith('coco'):
                 coco_flag=True
         else:
             sources = copy.deepcopy([e["conversations"] for e in sources])
-        
+
         data_dict = preprocess(
             sources,
             self.tokenizer,
@@ -900,14 +924,279 @@ class LazySupervisedDataset(Dataset):
         # image exist in the data
         if 'image' in self.list_data_dict[real_idx]:
             data_dict['image'] = image
+            if segmentation_masks:
+                data_dict['patch_labels'] = patch_labels
         elif self.data_args.is_multimodal:
             # image does not exist in the data, but the model is multimodal
             crop_size = self.data_args.image_processor.crop_size
             data_dict['image'] = torch.zeros(3, crop_size['height'], crop_size['width'])
         
         data_dict['is_coco'] = coco_flag
-        data_dict['segmentation_masks'] = segmentation_masks
+        # data_dict['segmentation_masks'] = segmentation_masks
         return data_dict
+    
+    def _build_patch_labels(self, 
+                            segmentation_masks: List[np.ndarray],
+                            original_image: Image.Image,
+                            image_size: int = 336, 
+                            patch_size: int = 14,
+                            overlap_threshold: float = 0.1,
+                            verbose: bool = False) -> torch.Tensor:
+        """
+        Converte segmentation masks in SINGLE-LABEL patch-level labels.
+        
+        Per ogni patch, assegna l'oggetto che occupa la MAGGIOR percentuale di area.
+        Se nessun oggetto supera overlap_threshold, la patch è etichettata come background (0).
+        
+        Args:
+            segmentation_masks: Lista di maschere (H_orig, W_orig) in spazio immagine originale
+            original_image: PIL Image originale
+            image_size: Dimensione target dopo preprocessing (336 per LLaVA)
+            patch_size: Dimensione patch ViT (14)
+            overlap_threshold: Threshold minimo per considerare un oggetto presente
+            
+        Returns:
+            patch_labels: LongTensor (num_patches,) con valori:
+                        0 = background (nessun oggetto)
+                        1-N = object_id (1-indexed, dove N = len(segmentation_masks))
+        """
+        orig_width, orig_height = original_image.size
+        num_patches_per_side = image_size // patch_size  # 24
+        num_patches = num_patches_per_side ** 2  # 576
+        
+        # ═══════════════════════════════════════════════════════════
+        # DEBUG: Info iniziali
+        # ═══════════════════════════════════════════════════════════
+        if verbose:
+            print(f"\n[PATCH_LABELS] ═══ Processing Image (SINGLE-LABEL) ═══")
+            print(f"[PATCH_LABELS] Original image size: {orig_width}x{orig_height}")
+            print(f"[PATCH_LABELS] Target size: {image_size}x{image_size}")
+            print(f"[PATCH_LABELS] Num masks: {len(segmentation_masks) if segmentation_masks else 0}")
+            print(f"[PATCH_LABELS] Aspect ratio mode: {self.data_args.image_aspect_ratio}")
+            print(f"[PATCH_LABELS] Overlap threshold: {overlap_threshold}")
+        
+        # ═══════════════════════════════════════════════════════════
+        # Edge Case: Nessuna mask
+        # ═══════════════════════════════════════════════════════════
+        if not segmentation_masks or len(segmentation_masks) == 0:
+            if verbose:
+                print(f"[PATCH_LABELS] ⚠️ No masks found → all patches = background (0)")
+            return torch.zeros(num_patches, dtype=torch.long)
+        
+        num_objects = len(segmentation_masks)
+        
+        # ═══════════════════════════════════════════════════════════
+        # ASSERT: Verifica input
+        # ═══════════════════════════════════════════════════════════
+        assert all(isinstance(mask, np.ndarray) for mask in segmentation_masks), \
+            "All masks must be numpy arrays"
+        assert all(mask.dtype == bool or mask.dtype == np.uint8 for mask in segmentation_masks), \
+            "All masks must be bool or uint8"
+        assert all(mask.shape == segmentation_masks[0].shape for mask in segmentation_masks), \
+            "All masks must have same shape"
+        
+        # ═══════════════════════════════════════════════════════════
+        # DEBUG: Stampa info sulle masks originali
+        # ═══════════════════════════════════════════════════════════
+        if verbose:
+            print(f"[PATCH_LABELS] Original masks shapes:")
+            for i, mask in enumerate(segmentation_masks[:3]):
+                mask_h, mask_w = mask.shape
+                pixels_on = mask.sum()
+                coverage = (pixels_on / (mask_h * mask_w)) * 100
+                print(f"[PATCH_LABELS]   Mask {i}: {mask_w}×{mask_h}, "
+                    f"{pixels_on} pixels ON ({coverage:.1f}% coverage)")
+            if len(segmentation_masks) > 3:
+                print(f"[PATCH_LABELS]   ... and {len(segmentation_masks)-3} more masks")
+        
+        # ═══════════════════════════════════════════════════════════
+        # STEP 1: Preprocessing masks (stesso di immagine)
+        # ═══════════════════════════════════════════════════════════
+        if self.data_args.image_aspect_ratio == 'pad':
+            square_size = max(orig_width, orig_height)
+            
+            if orig_width > orig_height:
+                pad_top = (square_size - orig_height) // 2
+                pad_left = 0
+                if verbose:
+                    print(f"[PATCH_LABELS] Padding: VERTICAL → square={square_size}x{square_size}, "
+                        f"offset=(top={pad_top}, left={pad_left})")
+            else:
+                pad_top = 0
+                pad_left = (square_size - orig_width) // 2
+                if verbose:
+                    print(f"[PATCH_LABELS] Padding: HORIZONTAL → square={square_size}x{square_size}, "
+                        f"offset=(top={pad_top}, left={pad_left})")
+            
+            resized_masks = []
+            for mask in segmentation_masks:
+                # Pad a quadrato
+                mask_square = np.zeros((square_size, square_size), dtype=np.uint8)
+                mask_square[pad_top:pad_top+orig_height, 
+                        pad_left:pad_left+orig_width] = mask.astype(np.uint8)
+                
+                # Resize
+                mask_pil = Image.fromarray(mask_square * 255)
+                mask_resized = mask_pil.resize((image_size, image_size), Image.NEAREST)
+                resized_masks.append(np.array(mask_resized) > 0)
+        else:
+            if verbose:
+                print(f"[PATCH_LABELS] Resize: DIRECT (no padding) → {image_size}x{image_size}")
+            resized_masks = []
+            for mask in segmentation_masks:
+                mask_pil = Image.fromarray(mask.astype(np.uint8) * 255)
+                mask_resized = mask_pil.resize((image_size, image_size), Image.NEAREST)
+                resized_masks.append(np.array(mask_resized) > 0)
+        
+        # ═══════════════════════════════════════════════════════════
+        # ASSERT: Verifica preprocessing
+        # ═══════════════════════════════════════════════════════════
+        assert len(resized_masks) == num_objects, \
+            f"Expected {num_objects} masks, got {len(resized_masks)}"
+        assert all(mask.shape == (image_size, image_size) for mask in resized_masks), \
+            f"All resized masks must be {image_size}x{image_size}"
+        
+        # ═══════════════════════════════════════════════════════════
+        # DEBUG: Info dopo resize
+        # ═══════════════════════════════════════════════════════════
+        if verbose:
+            print(f"[PATCH_LABELS] Resized masks to {image_size}x{image_size}:")
+            for i, mask in enumerate(resized_masks[:3]):
+                pixels_on = mask.sum()
+                coverage = (pixels_on / (image_size * image_size)) * 100
+                print(f"[PATCH_LABELS]   Mask {i}: {pixels_on} pixels ON ({coverage:.1f}% coverage)")
+        
+        # ═══════════════════════════════════════════════════════════
+        # STEP 2: Assegnazione SINGLE-LABEL per patch
+        # ═══════════════════════════════════════════════════════════
+        # Inizializza a 0 (background)
+        patch_labels = torch.zeros(num_patches, dtype=torch.long)
+        
+        # Matrice per tracciare overlap percentuali (per debug)
+        overlap_matrix = np.zeros((num_patches, num_objects), dtype=np.float32)
+        
+        patch_area = patch_size * patch_size
+        
+        for patch_idx in range(num_patches):
+            patch_row = patch_idx // num_patches_per_side
+            patch_col = patch_idx % num_patches_per_side
+            
+            y_start = patch_row * patch_size
+            y_end = y_start + patch_size
+            x_start = patch_col * patch_size
+            x_end = x_start + patch_size
+            
+            # Calcola overlap con TUTTI gli oggetti
+            overlaps = []
+            for obj_idx, mask in enumerate(resized_masks):
+                patch_region = mask[y_start:y_end, x_start:x_end]
+                overlap_ratio = patch_region.sum() / patch_area
+                overlaps.append(overlap_ratio)
+                overlap_matrix[patch_idx, obj_idx] = overlap_ratio
+            
+            # Trova oggetto con MAGGIOR overlap
+            max_overlap = max(overlaps)
+            max_obj_idx = overlaps.index(max_overlap)
+            
+            # Assegna SOLO se supera threshold
+            if max_overlap >= overlap_threshold:
+                # Label 1-indexed: 0=background, 1=obj_0, 2=obj_1, etc.
+                patch_labels[patch_idx] = max_obj_idx + 1
+            # else: rimane 0 (background)
+        
+        # ═══════════════════════════════════════════════════════════
+        # ASSERT: Verifica output
+        # ═══════════════════════════════════════════════════════════
+        assert patch_labels.shape == (num_patches,), \
+            f"patch_labels shape mismatch: expected ({num_patches},), got {patch_labels.shape}"
+        assert patch_labels.dtype == torch.long, \
+            f"patch_labels dtype mismatch: expected torch.long, got {patch_labels.dtype}"
+        assert patch_labels.min() >= 0, \
+            f"patch_labels contains negative values: min={patch_labels.min()}"
+        assert patch_labels.max() <= num_objects, \
+            f"patch_labels contains invalid object IDs: max={patch_labels.max()}, num_objects={num_objects}"
+        
+        # ═══════════════════════════════════════════════════════════
+        # DEBUG: Statistiche finali
+        # ═══════════════════════════════════════════════════════════
+        # Count per label
+        label_counts = torch.bincount(patch_labels, minlength=num_objects+1)
+        # label_counts[0] = num background patches
+        # label_counts[i] = num patches assigned to object (i-1)
+        
+        num_background = label_counts[0].item()
+        num_foreground = (num_patches - num_background)
+        
+        if verbose:
+            print(f"[PATCH_LABELS] ─── Final Statistics (SINGLE-LABEL) ───")
+            print(f"[PATCH_LABELS] Patch grid: {num_patches_per_side}x{num_patches_per_side} = {num_patches} patches")
+            print(f"[PATCH_LABELS] Background patches: {num_background}/{num_patches} "
+                f"({100*num_background/num_patches:.1f}%)")
+            print(f"[PATCH_LABELS] Foreground patches: {num_foreground}/{num_patches} "
+            f"({100*num_foreground/num_patches:.1f}%)")
+        
+        # Stampa distribuzione per oggetto
+        if verbose:
+            print(f"[PATCH_LABELS] Distribution per object:")
+            for obj_idx in range(num_objects):
+                count = label_counts[obj_idx + 1].item()
+                percentage = 100 * count / num_patches
+                if count > 0 or obj_idx < 3:  # Stampa sempre primi 3, poi solo non-zero
+                    print(f"[PATCH_LABELS]   Object {obj_idx}: {count} patches ({percentage:.1f}%)")
+        
+        # ═══════════════════════════════════════════════════════════
+        # DEBUG: Analisi conflitti (patch con overlap multiplo)
+        # ═══════════════════════════════════════════════════════════
+        # Trova patch dove c'erano più oggetti sopra threshold
+        num_objects_above_threshold = (overlap_matrix >= overlap_threshold).sum(axis=1)
+        conflicts = num_objects_above_threshold > 1
+        num_conflicts = conflicts.sum()
+        
+        if num_conflicts > 0 and verbose:
+            print(f"[PATCH_LABELS] Conflicts resolved: {num_conflicts} patches had multiple objects")
+            print(f"[PATCH_LABELS]   (assigned to object with highest overlap)")
+            
+            # Esempio di conflitto
+            conflict_indices = np.where(conflicts)[0]
+            if len(conflict_indices) > 0:
+                example_idx = conflict_indices[0]
+                example_overlaps = overlap_matrix[example_idx]
+                above_threshold = example_overlaps >= overlap_threshold
+                print(f"[PATCH_LABELS]   Example: Patch {example_idx} had overlaps: ", end="")
+                for obj_idx, overlap in enumerate(example_overlaps):
+                    if above_threshold[obj_idx]:
+                        assigned = (patch_labels[example_idx].item() == obj_idx + 1)
+                        marker = "←CHOSEN" if assigned else ""
+                        print(f"Obj{obj_idx}={overlap:.2f}{marker} ", end="")
+                print()
+        
+        # ═══════════════════════════════════════════════════════════
+        # WARNINGS
+        # ═══════════════════════════════════════════════════════════
+        if verbose:
+            if num_foreground < num_patches * 0.05:
+                print(f"[PATCH_LABELS] ⚠️ WARNING: Very few foreground patches (<5%)!")
+                print(f"[PATCH_LABELS]   This might indicate misalignment or very small objects")
+            
+            if num_foreground == 0:
+                print(f"[PATCH_LABELS] ❌ ERROR: NO foreground patches assigned!")
+                print(f"[PATCH_LABELS]   All objects below threshold or masks misaligned")
+            
+            # Verifica balance tra oggetti
+            if num_objects > 1:
+                obj_counts = label_counts[1:].float()  # escludi background
+                if obj_counts.max() > 0:
+                    imbalance_ratio = obj_counts.max() / obj_counts[obj_counts > 0].min()
+                    if imbalance_ratio > 10:
+                        print(f"[PATCH_LABELS] ⚠️ WARNING: High object imbalance (ratio={imbalance_ratio:.1f})")
+                        print(f"[PATCH_LABELS]   Some objects may be very small or occluded")
+        
+        print(f"[PATCH] {orig_width}x{orig_height} | {num_objects} objs | "
+            f"{num_foreground}/{num_patches} patches ({100*num_foreground/num_patches:.0f}%)")
+        if verbose:
+            print(f"[PATCH_LABELS] ═══════════════════════════\n")
+        
+        return patch_labels
 
     def _load_coco_masks(self, image_filename: str) -> List[np.ndarray]:
         """
@@ -952,7 +1241,7 @@ class LazySupervisedDataset(Dataset):
         """
         Determina se applicare contrastive loss per questa immagine
         """
-        if not self.use_contrastive:
+        if not self.contrastive_loss:
             return False
         
         # COCO images
@@ -1067,12 +1356,15 @@ class DataCollatorForSupervisedDataset(object):
                                                  padding_value=IGNORE_INDEX)
         input_ids = input_ids[:, :self.tokenizer.model_max_length]
         labels = labels[:, :self.tokenizer.model_max_length]
+
+        # * Create the batch data structure as dictionary
         batch = dict(
             input_ids=input_ids,
             labels=labels,
             attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
         )
 
+        # * Add optional images
         if 'image' in instances[0]:
             images = [instance['image'] for instance in instances]
             if all(x is not None and x.shape == images[0].shape for x in images):
@@ -1083,10 +1375,30 @@ class DataCollatorForSupervisedDataset(object):
         is_coco = [instance.get('is_coco', False) for instance in instances]
         batch['is_coco'] = torch.tensor(is_coco, dtype=torch.bool)
 
-        # ^ Add for contrastive loss
-        if 'segmentation_masks' in instances[0]:
-            # Lista di liste: batch_size x [maschere per sample]
-            batch['segmentation_masks'] = [instance['segmentation_masks'] for instance in instances]
+        # * Add for contrastive loss
+        # * Gestione patch_labels con batching. Devo fare uno stack intelligente
+        # ═══════════════════════════════════════════════════════════
+        # GESTIONE PATCH_LABELS: alcuni items possono non averle
+        # ═══════════════════════════════════════════════════════════
+        if any('patch_labels' in inst for inst in instances):
+            patch_labels_list = []
+            
+            # Prima pass: trova il numero massimo di oggetti
+            for instance in instances:
+                if 'patch_labels' in instance:
+                    pl = instance['patch_labels']  # (576,) - single label per patch
+            
+                    # Validazione
+                    assert pl.dim() == 1, f"Expected 1D patch_labels, got shape {pl.shape}"
+                    assert pl.dtype == torch.long, f"Expected torch.long, got {pl.dtype}"
+                    
+                    patch_labels_list.append(pl)
+                else:
+                    # Nessuna label per questa istanza -> padding con -1
+                    patch_labels_list.append(torch.full((576,), -1, dtype=torch.long))
+            
+            batch['patch_labels'] = torch.stack(patch_labels_list)
+            # print(f"[COLLATOR] Batched patch_labels: {batch['patch_labels'].shape} (single-label format)")
         
         return batch
 
@@ -1105,6 +1417,8 @@ def make_supervised_data_module(tokenizer: transformers.PreTrainedTokenizer,
 
 def train(attn_implementation=None):
     global local_rank
+
+    # * Parsing of the arguments (model, data and training)
     parser = transformers.HfArgumentParser(
         (ModelArguments, DataArguments, TrainingArguments))
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
@@ -1130,6 +1444,7 @@ def train(attn_implementation=None):
             )
         ))
 
+    # * Load the multimodal model (LLaVa)
     if model_args.vision_tower is not None:
         if 'mpt' in model_args.model_name_or_path:
             config = transformers.AutoConfig.from_pretrained(model_args.model_name_or_path, trust_remote_code=True)
@@ -1157,6 +1472,7 @@ def train(attn_implementation=None):
                     **bnb_model_from_pretrained_args
                 )
             elif 'vicuna' in model_args.model_name_or_path:
+                # * This should be my case
                 model = LlavaLlamaForCausalLM.from_pretrained(
                     model_args.model_name_or_path,
                     config=config,
@@ -1191,6 +1507,7 @@ def train(attn_implementation=None):
                 output.requires_grad_(True)
             model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
 
+    # * LoRA settings
     if training_args.lora_enable:
         from peft import LoraConfig, get_peft_model
         lora_config = LoraConfig(
@@ -1209,6 +1526,7 @@ def train(attn_implementation=None):
         rank0_print("Adding LoRA adapters...")
         model = get_peft_model(model, lora_config)
 
+    # * Handle tokenizer setup
     if 'mpt' in model_args.model_name_or_path:
         tokenizer = transformers.AutoTokenizer.from_pretrained(
             model_args.model_name_or_path,
@@ -1253,6 +1571,7 @@ def train(attn_implementation=None):
         else:
             conversation_lib.default_conversation = conversation_lib.conv_templates["vicuna_v1"]
 
+    # * Vision Tower Initialization
     if model_args.vision_tower is not None:
         model.get_model().initialize_vision_modules(
             model_args=model_args,
@@ -1308,7 +1627,7 @@ def train(attn_implementation=None):
     # Se il config ha contrastive_loss abilitato, sincronizza con data_args
     if hasattr(config, 'contrastive_loss') and config.contrastive_loss:
         # Abilita nel dataset
-        data_args.use_contrastive_loss = True
+        data_args.contrastive_loss = True
         
         # Assicurati che il path annotations sia settato
         if not hasattr(data_args, 'coco_ann_path') or data_args.coco_ann_path is None:
@@ -1326,17 +1645,21 @@ def train(attn_implementation=None):
         rank0_print("="*60)
     else:
         # Disabilita contrastive loss
-        data_args.use_contrastive_loss = False
+        data_args.contrastive_loss = False
         rank0_print("[INFO] Contrastive Loss: DISABLED (not in config or set to false)")
     # ^ ========================================
 
+    # * Create the Dataset & DataCollator
     data_module = make_supervised_data_module(tokenizer=tokenizer,
                                               data_args=data_args)
+    
+    # * Create the Trainer
     trainer = LLaVATrainer(model=model,
                     tokenizer=tokenizer,
                     args=training_args,
                     **data_module)
 
+    # * Start the training
     if list(pathlib.Path(training_args.output_dir).glob("checkpoint-*")):
         # breakpoint()
         trainer.train(resume_from_checkpoint=True)
@@ -1357,6 +1680,7 @@ def train(attn_implementation=None):
     #         model.config.save_pretrained(training_args.output_dir)
     #         model.save_pretrained(training_args.output_dir, state_dict=state_dict)
     #         torch.save(non_lora_state_dict, os.path.join(training_args.output_dir, 'non_lora_trainables.bin'))
+    # * Save modules if LoRA is enabled
     if training_args.lora_enable:
         # breakpoint()
         # 1. 기존 저장 방식 - LoRA 어댑터만 저장
@@ -1403,7 +1727,6 @@ def train(attn_implementation=None):
     else:
         safe_save_model_for_hf_trainer(trainer=trainer,
                                        output_dir=training_args.output_dir)
-
 
 if __name__ == "__main__":
     train()

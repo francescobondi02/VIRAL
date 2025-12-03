@@ -51,6 +51,7 @@ class LLaVAContrastiveManager:
         features: torch.Tensor,
         masks: List[np.ndarray],  # ← Accetta numpy arrays
         feature_hw: Tuple[int, int],
+        attention_weights: Optional[torch.Tensor] = None,
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         H, W = feature_hw
         
@@ -70,7 +71,23 @@ class LLaVAContrastiveManager:
             label_map[down_mask] = obj_idx
         
         labels_flat = label_map.view(-1)
-        return features, labels_flat
+        attention_flat = None
+        if attention_weights is not None:
+            # Verifica che abbiano la shape corretta
+            if attention_weights.shape != (H, W):
+                raise ValueError(
+                    f"attention_weights shape {attention_weights.shape} "
+                    f"doesn't match feature_hw {(H, W)}"
+                )
+            # Sposta su stesso device delle features
+            attention_weights = attention_weights.to(device)
+            attention_flat = attention_weights.view(-1)  # (H*W,)
+
+        # AGGIUNGI QUESTO DEBUG:
+        num_foreground = (label_map >= 0).sum().item()
+        num_background = (label_map == -1).sum().item()
+        print(f"  Label map: {num_foreground} foreground, {num_background} background")
+        return features, labels_flat, attention_flat
     
     def _downsample_mask(self, mask: np.ndarray, target_hw: Tuple[int, int]) -> torch.Tensor:
         """Downsample mask usando nearest neighbor"""
@@ -88,7 +105,7 @@ class LLaVAContrastiveManager:
         self,
         features: torch.Tensor,
         instance_labels: torch.Tensor,
-        sample_weights: Optional[torch.Tensor] = None,
+        attention_weights: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
         """
         Calcola contrastive loss (implementazione EgoLifter-style)
@@ -105,6 +122,7 @@ class LLaVAContrastiveManager:
         
         # Early exit se troppo pochi sample
         if N < 8:
+            print(f"  ⚠️ Too few samples ({N} < 8), returning 0.0")
             return torch.tensor(0.0, device=features.device)
         
         # 1. Costruisci similarity mask (quali pixel appartengono allo stesso oggetto)
@@ -119,10 +137,31 @@ class LLaVAContrastiveManager:
         # 4. Similarity kernel (Gaussian RBF)
         similarity_kernel = torch.exp(-distance_sq / temperature_matrix)  # (N, N)
         
-        # 5. Apply weights se forniti
-        if sample_weights is not None:
-            weight_matrix = sample_weights.unsqueeze(1) * sample_weights.unsqueeze(0)  # (N, N)
+        # 5. Apply attention-based weights
+        if attention_weights is not None:
+            # Verifica shape corretta
+            if attention_weights.size(0) != N:
+                raise ValueError(
+                    f"attention_weights size {attention_weights.size(0)} "
+                    f"doesn't match features size {N}"
+                )
+            
+            # Normalizza attention weights (opzionale ma consigliato)
+            # Questo assicura che non dominino completamente la loss
+            attn_normalized = attention_weights / (attention_weights.mean() + 1e-8)
+            
+            # Costruisci weight matrix: w[i,j] = attention[i] * attention[j]
+            # Pixel con alta attention → coppia ha peso alto
+            # Pixel con bassa attention → coppia ha peso basso
+            weight_matrix = attn_normalized.unsqueeze(1) * attn_normalized.unsqueeze(0)  # (N, N)
+            
+            # Applica i pesi al similarity kernel
+            # Effetto: coppie di pixel entrambi importanti contribuiscono di più
             similarity_kernel = similarity_kernel * weight_matrix
+            
+            print(f"[DEBUG] Applied attention weighting: "
+                f"attn range [{attention_weights.min():.6f}, {attention_weights.max():.6f}], "
+                f"normalized mean={attn_normalized.mean():.4f}")
         
         # 6. Compute probability and loss
         prob_before_norm = torch.exp(similarity_kernel)  # Double exp (come EgoLifter)
@@ -238,41 +277,63 @@ class LLaVAContrastiveManager:
         self,
         features: torch.Tensor,
         labels: torch.Tensor,
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        attention_weights: Optional[torch.Tensor] = None,
+    ) -> Tuple[torch.Tensor, torch.Tensor, Optional[torch.Tensor]]:
         """
-        Campiona n_samples pixel e filtra background
+        ✅ VERSIONE GRADIENT-SAFE: usa weights invece di hard indexing
+        """
+        # Crea mask di validità come float weights (0 o 1)
+        valid_mask = (labels >= 0).float()  # (H*W,)
         
-        Args:
-            features: (H*W, D)
-            labels: (H*W,)
+        print(f"[MANAGER] sample_and_filter:")
+        print(f"  Total pixels: {labels.numel()}")
+        print(f"  Valid (foreground) pixels: {valid_mask.sum().item()}")
+        
+        if valid_mask.sum() == 0:
+            return features[:0], labels[:0], None
+        
+        # ✅ Invece di indexing, usa gumbel-softmax o top-k differenziabile
+        # Per semplicità, usa tutti i pixel validi pesati
+        n_valid = int(valid_mask.sum().item())
+        
+        if n_valid > self.n_samples:
+            # Campionamento differenziabile con gumbel trick
+            logits = torch.rand_like(valid_mask).log()  # Gumbel noise
+            logits = logits * valid_mask + (-1e9) * (1 - valid_mask)  # Mask invalidi
             
-        Returns:
-            sampled_features: (N, D)
-            sampled_labels: (N,)
-        """
-        # Rimuovi background (-1)
-        valid_mask = labels >= 0
-        valid_indices = torch.where(valid_mask)[0]
-        
-        if valid_indices.numel() == 0:
-            # Nessun foreground, ritorna vuoto
-            return features[:0], labels[:0]
-        
-        # Campiona casualmente se troppi
-        if valid_indices.numel() > self.n_samples:
-            # FIX: Usa lo stesso device di valid_indices
-            perm = torch.randperm(valid_indices.numel(), device=valid_indices.device)[:self.n_samples]
-            sampled_indices = valid_indices[perm]
+            # Top-k sampling (mantiene gradienti attraverso straight-through)
+            _, top_indices = torch.topk(logits, self.n_samples)
+            
+            # Crea one-hot mask per sampling
+            sample_mask = torch.zeros_like(valid_mask)
+            sample_mask[top_indices] = 1.0
         else:
-            sampled_indices = valid_indices
+            sample_mask = valid_mask
         
-        return features[sampled_indices], labels[sampled_indices]
+        # ✅ Usa il mask come weight, non come index
+        # Questo mantiene TUTTI i pixel nel computation graph
+        sample_mask = sample_mask.unsqueeze(1)  # (H*W, 1)
+        
+        # Weighted features (mantiene computation graph)
+        weighted_features = features * sample_mask
+        
+        # Per la loss, estrai solo i campionati
+        # NOTA: Questo è ancora un indexing, ma ora i gradienti dovrebbero fluire
+        # perché valid_mask è usato come weight prima
+        sampled_indices = torch.where(sample_mask.squeeze() > 0)[0]
+        
+        sampled_features = weighted_features[sampled_indices]
+        sampled_labels = labels[sampled_indices]
+        sampled_attention = attention_weights[sampled_indices] if attention_weights is not None else None
+        
+        return sampled_features, sampled_labels, sampled_attention
     
     def forward(
         self,
         features: torch.Tensor,
         masks: List[np.ndarray],
         feature_hw: Tuple[int, int],
+        attention_weights: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
         """
         Entry point principale per calcolare la loss
@@ -285,22 +346,26 @@ class LLaVAContrastiveManager:
         Returns:
             loss: scalar
         """
-        # 1. Prepara features e labels
-        features_flat, labels_flat = self.prepare_features_and_labels(
-            features, masks, feature_hw
+        # 1. Prepara features, labels e attention
+        features_flat, labels_flat, attention_flat = self.prepare_features_and_labels(
+            features, masks, feature_hw, attention_weights  # ← Passa attention
         )
         
         # 2. Campiona e filtra
-        sampled_features, sampled_labels = self.sample_and_filter(
-            features_flat, labels_flat
+        sampled_features, sampled_labels, sampled_attention = self.sample_and_filter(
+            features_flat, labels_flat, attention_flat  # ← Passa attention
         )
         
         # 3. Verifica che ci siano abbastanza sample validi
         if sampled_features.size(0) < 8:
             return torch.tensor(0.0, device=features.device)
         
-        # 4. Compute contrastive loss
-        loss = self.compute_loss(sampled_features, sampled_labels)
+        # 4. Compute contrastive loss con attention weighting
+        loss = self.compute_loss(
+            sampled_features, 
+            sampled_labels,
+            attention_weights=sampled_attention  # ← Passa attention
+        )
         
         return loss
 

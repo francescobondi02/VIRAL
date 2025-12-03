@@ -47,10 +47,10 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 import numpy as np
 
-# ^ Contrastive Loss add
-from .llava_contrastive import LLaVAContrastiveManager
-
 def visualize_feature_pca(features, save_path='feature.png'):
+    """
+    This method performs PCA on the features, reduces them to 3 dimensions.
+    """
     # CPU로 이동하고 numpy로 변환
     features_np = features.float().squeeze(0).detach().cpu().numpy()
     
@@ -94,15 +94,29 @@ def is_main_process():
     return True
 
 class AlignmentProjector(nn.Module):
+    """
+    Class which handles the projection, to map hidden states of the LLM (hidden_size) into feature space of the VFM (z_dim)
+    """
     def __init__(self, hidden_size, projector_dim, z_dim):
         super().__init__()
-        self.projector = nn.Sequential(
+        """self.projector = nn.Sequential(
             nn.Linear(hidden_size, projector_dim),
             nn.SiLU(),
             nn.Linear(projector_dim, projector_dim),
             nn.SiLU(),
             nn.Linear(projector_dim, z_dim),
         )
+
+        for m in self.projector.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.xavier_uniform_(m.weight, gain=2.0) 
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)"""
+        
+        self.projector = nn.Linear(hidden_size, z_dim)
+        nn.init.xavier_uniform_(self.projector.weight, gain=3.0)
+        if self.projector.bias is not None:
+            nn.init.zeros_(self.projector.bias)
 
     def forward(self, x):
         return self.projector(x)
@@ -119,23 +133,29 @@ from transformers.modeling_outputs import BaseModelOutputWithPast, CausalLMOutpu
 from transformers.cache_utils import Cache, DynamicCache
 
 class ResidualLlamaModel(LlamaModel):
+    """
+    Llama Model with residual connection from input embeddings to specified layers.
+    Used to add residual connection at layer 16 for VIRAL.
+    """
     @add_start_docstrings_to_model_forward(LLAMA_INPUTS_DOCSTRING)
     def forward(
         self,
-        input_ids: torch.LongTensor = None,
+        input_ids: torch.LongTensor = None,                         # * Inputs, shape = (B, L)
         attention_mask: Optional[torch.Tensor] = None,
         position_ids: Optional[torch.LongTensor] = None,
         past_key_values: Optional[List[torch.FloatTensor]] = None,
-        inputs_embeds: Optional[torch.FloatTensor] = None,
+        inputs_embeds: Optional[torch.FloatTensor] = None,          # * Alternative inputs, shape = (B, L)
         use_cache: Optional[bool] = None,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
+        output_attentions: Optional[bool] = None,                   # * Should return the attention maps or not?
+        output_hidden_states: Optional[bool] = None,                # * Should output the hidden states or not?
         return_dict: Optional[bool] = None,
-        residual: Optional[bool] = False,
-        target_layers: Optional[List[int]] = None,
+        residual: Optional[bool] = False,                           # * If TRUE, applies the VIRAL method of residual connection
+        target_layers: Optional[List[int]] = None,                  # * Specifies the target layers to which apply the residual connection
     ) -> Union[Tuple, BaseModelOutputWithPast]:
         if residual:
             assert target_layers is not None, "target_layers must be specified if residual is True"
+
+        # * If the user didn't specify these values, use the default from the config.
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
             output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
@@ -144,7 +164,7 @@ class ResidualLlamaModel(LlamaModel):
 
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
 
-        # retrieve input_ids and inputs_embeds
+        # * Retrieve input_ids or inputs_embeds
         if input_ids is not None and inputs_embeds is not None:
             raise ValueError("You cannot specify both input_ids and inputs_embeds at the same time")
         elif input_ids is not None:
@@ -158,6 +178,7 @@ class ResidualLlamaModel(LlamaModel):
             if use_cache:
                 use_cache = False
 
+        # * Handles cache
         past_key_values_length = 0
         if use_cache:
             use_legacy_cache = not isinstance(past_key_values, Cache)
@@ -165,6 +186,7 @@ class ResidualLlamaModel(LlamaModel):
                 past_key_values = DynamicCache.from_legacy_cache(past_key_values)
             past_key_values_length = past_key_values.get_usable_length(seq_length)
 
+        # * If user didn't pass position_ids, compute them (using the cached values)
         if position_ids is None:
             device = input_ids.device if input_ids is not None else inputs_embeds.device
             position_ids = torch.arange(
@@ -172,9 +194,11 @@ class ResidualLlamaModel(LlamaModel):
             )
             position_ids = position_ids.unsqueeze(0)
 
+        # * If the user didn't pass embeddings but only ids, then we convert them into embeddings
         if inputs_embeds is None:
             inputs_embeds = self.embed_tokens(input_ids)
 
+        # * Prepare the attention mask, depending on the implementation used
         if self._use_flash_attention_2:
             # 2d mask is passed through the layers
             attention_mask = attention_mask if (attention_mask is not None and 0 in attention_mask) else None
@@ -193,18 +217,22 @@ class ResidualLlamaModel(LlamaModel):
                 attention_mask, (batch_size, seq_length), inputs_embeds, past_key_values_length
             )
 
-        # embed positions
+        # * Embed positions (shape = (B, L, hidden_size)), now we have the hidden state before
+        # * adding any residual connection
         hidden_states = inputs_embeds
 
-        # decoder layers
+        # * Save the hidden states / attentions if requested by the user
         all_hidden_states = () if output_hidden_states else None
         all_self_attns = () if output_attentions else None
         next_decoder_cache = None
 
+        # * Loop over the layers of the decoder
         for idx, decoder_layer in enumerate(self.layers):
+            # * Save the hidden state in the data structure
             if output_hidden_states:
                 all_hidden_states += (hidden_states,)
 
+            # * Get the output of the layer (either with checkpoint or by direct call)
             if self.gradient_checkpointing and self.training:
                 layer_outputs = self._gradient_checkpointing_func(
                     decoder_layer.__call__,
@@ -225,6 +253,9 @@ class ResidualLlamaModel(LlamaModel):
                     use_cache=use_cache,
                 )
 
+            # ^ REMINDER layer_outputs = [hidden_states, attn_weights, past_key_value (optional)]
+
+            # * Update hidden states with the output of the current layer and by adding the residual connection (if needed)
             hidden_states = layer_outputs[0]
             if residual and (idx+1 in target_layers):
                 hidden_states = hidden_states + inputs_embeds
@@ -232,18 +263,22 @@ class ResidualLlamaModel(LlamaModel):
             if use_cache:
                 next_decoder_cache = layer_outputs[2 if output_attentions else 1]
 
+            # * Save the attention score if the user requested it
             if output_attentions:
                 all_self_attns += (layer_outputs[1],)
 
+        # * Normalize the hidden states
         hidden_states = self.norm(hidden_states)
 
-        # add hidden states from the last decoder layer
+        # * Add hidden states from the last decoder layer
         if output_hidden_states:
             all_hidden_states += (hidden_states,)
 
         next_cache = None
         if use_cache:
             next_cache = next_decoder_cache.to_legacy_cache() if use_legacy_cache else next_decoder_cache
+
+        # * Format and returns the output (depends on return_dict)
         if not return_dict:
             return tuple(v for v in [hidden_states, next_cache, all_hidden_states, all_self_attns] if v is not None)
         return BaseModelOutputWithPast(
@@ -266,10 +301,16 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
 
     def __init__(self, config):
         super(LlamaForCausalLM, self).__init__(config)
+
+        # * Call the LLM Backbone
         self.model = LlavaLlamaModel(config)
+
+        # * Base parameters for model
         self.pretraining_tp = config.pretraining_tp
         self.vocab_size = config.vocab_size
         self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
+
+        # * Specific features for VIRAL and residuals (cannot have both, they have the same scope)
         self.vra_loss = config.vra_loss if hasattr(config, 'vra_loss') else False
         self.residual = config.residual if hasattr(config, 'residual') else False
         self.diffusion_loss = config.diffusion_loss if hasattr(config, 'diffusion_loss') else False
@@ -277,43 +318,41 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             self.diffusion_weight = config.diffusion_weight if hasattr(config, 'diffusion_weight') else 1.0
         assert not(self.vra_loss & self.residual), "vra loss and residual cannot be true at same time"
         self.residual_target_layers = config.residual_target_layers if hasattr(config, 'residual_target_layers') else None
-        # ^ Aggiunta per Contrastive Loss
-        self.contrastive_loss = config.contrastive_loss if hasattr(config, "contrastive_loss") else False
-        if self.contrastive_loss:
-            self.contrastive_weight = config.contrastive_weight if hasattr(config, "contrastive_weight") else 0.1
-            self.contrastive_temperature = config.contrastive_temperature if hasattr(config, "contrastive_temperature") else 0.07
-            self.contrastive_n_samples = config.contrastive_n_samples if hasattr(config, "contrastive_n_samples") else 256
-            self.contrastive_sum_in_log = config.contrastive_sum_in_log if hasattr(config, "contrastive_sum_in_log") else True
 
-            # Inizializza il ContrastiveManager
-            self.contrast_manager = LLaVAContrastiveManager(
-                temperature=self.contrastive_temperature,
-                n_samples=self.contrastive_n_samples,
-                sum_in_log=self.contrastive_sum_in_log,
-                sim_exp=1.0,
-                min_pixels_per_object=5,
-                use_multilabel=False,
-            )
-            print(f"[INFO] ContrastiveManager initialized with temperature={self.contrastive_temperature}, "
-                f"n_samples={self.contrastive_n_samples}, weight={self.contrastive_weight}")
-        # ^ Aggiunta per Contrastive Loss
+        # * Include Contrastive Loss settings
+        self.contrastive_loss = config.contrastive_loss if hasattr(config, 'contrastive_loss') else False
+        self.contrastive_weight = config.contrastive_weight if hasattr(config, 'contrastive_weight') else 0.2
+        self.contrastive_temperature = config.contrastive_temperature if hasattr(config, 'contrastive_temperature') else 0.8
+        self.contrastive_n_samples = config.contrastive_n_samples if hasattr(config, 'contrastive_n_samples') else 150
+        self.contrastive_sum_in_log = config.contrastive_sum_in_log if hasattr(config, 'contrastive_sum_in_log') else False
+
+        # * Logic for VIRAL loss
         if self.vra_loss:
             self.only_coco = config.only_coco if hasattr(config, 'only_coco') else False
             self.target_layers = config.target_layers if hasattr(config, 'target_layers') else [15,16]
+
+            # * Which VFM to use for alignment
             self.vra_target = config.vra_target if hasattr(config, 'vra_target') else "dinov2-vit-b" # sam_vit_b_01ec64, dinov2-vit-b, clip
             self.vra_weight = config.vra_weight if hasattr(config, 'vra_weight') else 0.5
+
+            # * Size of the projector and z_dim
             self.projector_dim = config.projector_dim if hasattr(config, 'projector_dim') else 2048 # VRA Default
             self.z_dim = config.z_dim if hasattr(config, 'z_dim') else 768 # DINO Default 768, 256 if SAM, 1024 if CLIP-L
+
+            # * Types of loss
             self.alignment_loss = config.alignment_loss if hasattr(config, 'alignment_loss') else "direct" #"direct" # direct, similarity
             self.use_projector = config.use_projector if hasattr(config, 'use_projector') else False # If False, use the mid hidden states directly, only for similarity loss.
             self.use_multiple_projectors = config.use_multiple_projectors if hasattr(config, 'use_multiple_projectors') else False # If True, use multiple projectors for each layer, only for similarity loss.
             if self.target_layers is not None:
+                # * Create AlignmentProject(s) to go from hidden_size (LLM) to z_dim (VFM)
                 if self.use_multiple_projectors:
                     self.alignment_projector = nn.ModuleList([
                         AlignmentProjector(config.hidden_size, self.projector_dim, self.z_dim) for _ in range(len(self.target_layers))
                     ])
                 else:
                     self.alignment_projector = AlignmentProjector(config.hidden_size, self.projector_dim, self.z_dim)
+
+                # * Handles the loading of the VFM (handles the different cases)
                 if 'dinov2' in self.vra_target:
                     import timm
                     model, _, model_config = self.vra_target.split('-')
@@ -366,6 +405,35 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                     
                     del dv2
                     torch.cuda.empty_cache()
+
+        print("=" * 80)
+        print("[LLAVA INIT] Model Configuration Summary")
+        print("=" * 80)
+        print(f"[VRA LOSS]")
+        print(f"  Enabled: {self.vra_loss}")
+        if self.vra_loss:
+            print(f"  Target Layers: {self.target_layers if hasattr(self, 'target_layers') else 'NOT SET YET'}")
+            print(f"  VRA Target: {self.vra_target if hasattr(self, 'vra_target') else 'NOT SET YET'}")
+            print(f"  VRA Weight: {self.vra_weight if hasattr(self, 'vra_weight') else 'NOT SET YET'}")
+            print(f"  Z Dim: {self.z_dim if hasattr(self, 'z_dim') else 'NOT SET YET'}")
+            print(f"  Projector Dim: {self.projector_dim if hasattr(self, 'projector_dim') else 'NOT SET YET'}")
+            print(f"  Alignment Loss Type: {self.alignment_loss if hasattr(self, 'alignment_loss') else 'NOT SET YET'}")
+        print(f"\n[CONTRASTIVE LOSS]")
+        print(f"  Enabled: {self.contrastive_loss}")
+        if self.contrastive_loss:
+            print(f"  Weight: {self.contrastive_weight}")
+            print(f"  Temperature: {self.contrastive_temperature}")
+            print(f"  N Samples: {self.contrastive_n_samples}")
+            print(f"  Sum in Log: {self.contrastive_sum_in_log}")
+        print(f"\n[RESIDUAL]")
+        print(f"  Enabled: {self.residual}")
+        if self.residual:
+            print(f"  Target Layers: {self.residual_target_layers}")
+        print(f"\n[DIFFUSION]")
+        print(f"  Enabled: {self.diffusion_loss}")
+        if self.diffusion_loss:
+            print(f"  Weight: {self.diffusion_weight}")
+        print("=" * 80)
                     
         # Initialize weights and apply final processing
         self.post_init()
@@ -437,7 +505,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         image_sizes: Optional[List[List[int]]] = None,
         return_dict: Optional[bool] = None,
         is_coco = None,
-        segmentation_masks: Optional[List[List[np.ndarray]]] = None,
+        patch_labels: Optional[torch.LongTensor] = None
     ) -> Union[Tuple, CausalLMOutputWithPast]:
         r"""
         Args:
@@ -464,6 +532,8 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         >>> tokenizer.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
         "Hey, are you conscious? Can you talk to me?\nI'm not conscious, but I can talk to you."
         ```"""
+
+        # * Prepare the input, insert in the sequence also token-image and generate inputs_embeds = [img_patch_1, …, img_patch_576, text...]
         if inputs_embeds is None:
             (
                 input_ids,
@@ -482,10 +552,12 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                 image_sizes
             )
         
+        # * Create a mask to identify image tokens (assumed to have id -200)
         img_token_where = (input_ids == -200)
         if self.training and inputs_embeds is not None:
             input_ids = None
         
+        # * Get the configs
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
             output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
@@ -493,8 +565,12 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
         if self.vra_loss:
             output_hidden_states = True
+        print(f"[INFO][contrastive_loss={self.contrastive_loss}, training={self.training}]")
+        if self.contrastive_loss and self.training:
+            output_attentions = True
             
         # decoder outputs consists of (dec_features, layer_state, dec_hidden, dec_attn)
+        # * Call the LLM Backbone (ResidualLlamaModel), extracts hidden states per layer and returns them (together with attentions, if requested)
         outputs = self.model(
             input_ids=input_ids,
             attention_mask=attention_mask,
@@ -510,14 +586,19 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         )
 
         hidden_states = outputs[0]
+
+        # * Start working for the VRA_LOSS
         if self.vra_loss:
             if self.target_layers is None:
+                # * Take all as targets
                 self.target_layers = list(range(0, len(self.model.layers)+1))
 
+            # * Obtain hidden states for target layers (and put them in a list)
             mid_hidden_states = [outputs.hidden_states[i] for i in self.target_layers]
             
             del outputs.hidden_states
             
+            # * Extract visual features from the VFM (depending on which one is used)
             if 'dinov2' in self.vra_target:
                 images_resized = F.interpolate(images, size=(336, 336), mode="bilinear") # Maybe it is better to use 224 and upsample feature or downsample llm feature
                 self.alignment_encoder.eval()
@@ -578,9 +659,18 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                     alignment_feature = self.alignment_encoder.get_intermediate_layers(images_resized, [target_layer], return_class_token=False)[0]
                 del images_resized
             
-              
+            # ^ alignment_feature[b] = (576, z_dim)
+            # * Converts the min_hidden_states into shape (B, num_layers, seq_len, hidden_size)
             mid_hidden_states = torch.stack(mid_hidden_states, dim=1)
             bsz, num_layers, seq_len, hidden_size = mid_hidden_states.shape # seq_len should be change to image patches
+
+            print(f"\n[DEBUG BEFORE PROJECTOR]")
+            print(f"  mid_hidden_states[0, 0, :10]: {mid_hidden_states[0, 0, :10]}")  # Prime 10 dim
+            print(f"  mean={mid_hidden_states.mean():.6f}, std={mid_hidden_states.std():.6f}")
+            print(f"  min={mid_hidden_states.min():.6f}, max={mid_hidden_states.max():.6f}")
+            print(f"  L2 norm per token: {torch.norm(mid_hidden_states[0, 0], p=2, dim=-1).mean():.6f}\n")
+
+            # * Projection of the mid hidden states into the space of VFM (hidden_size -> z_dim)
             if self.alignment_loss == "direct" or (self.alignment_loss == "similarity" and self.use_projector):
                 if self.use_multiple_projectors:
                     projected_feature = []
@@ -592,26 +682,60 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                     mid_hidden_states = mid_hidden_states.view(-1, seq_len, hidden_size) # flatten the layers
                     projected_feature = self.alignment_projector(mid_hidden_states)
                     projected_feature = projected_feature.view(bsz, num_layers, seq_len, -1) # reshape to bsz, num_layers, seq_len, z_dim
+                    # * projected_feature[b, layer_idx, img_tokens, :] -> describes the image tokens projected into the space VFM (I THINK THIS COULD BE VERY USEFUL)
             elif self.alignment_loss == "similarity":
                 projected_feature = mid_hidden_states
             
             del mid_hidden_states
-            torch.cuda.empty_cache()
+            # torch.cuda.empty_cache() chatgpt told me so
             
             vra_loss = 0.
             valid_batch_count = 0
+            contrastive_loss = 0.0
+            # * Start computing the VRA Loss (PROBABLY NEED TO ADD HERE THE CONTRASTIVE PART)
             for b in range(bsz):
-                img_tokens_b = img_token_where[b]
+                img_tokens_b = img_token_where[b] # * Get the image tokens for the b-th sample
                 if img_tokens_b.any() and img_tokens_b.sum() == 576:
                     if self.only_coco and not is_coco[b]:
                         continue
                     valid_batch_count += 1
+                    # * For each target layer
                     for idx in range(len(self.target_layers)):
                         if self.alignment_loss == "direct":
-                            proj_b = projected_feature[b, idx, img_tokens_b, :]
-                            proj_b = F.normalize(proj_b, dim=-1)
-                            alig_b = F.normalize(alignment_feature[b], dim=-1) # normalize the alignment feature
-                            vra_loss += (-(proj_b * alig_b).sum(dim=-1)).mean()
+                            proj_b = projected_feature[b, idx, img_tokens_b, :] # * Projected feature for the image tokens (in the VFM space)
+
+                            print(f"[DEBUG PRE-NORM b={b}] shape={proj_b.shape}")
+                            print(f"[DEBUG PRE-NORM b={b}] mean={proj_b.mean():.6f}, std={proj_b.std():.6f}")
+                            print(f"[DEBUG PRE-NORM b={b}] min={proj_b.min():.6f}, max={proj_b.max():.6f}")
+                            print(f"[DEBUG PRE-NORM b={b}] L2 norms: mean={torch.norm(proj_b, p=2, dim=-1).mean():.6f}")
+
+                            proj_b_vra = F.normalize(proj_b, p=2, dim=-1)
+                            alig_b = F.normalize(alignment_feature[b], dim=-1) # * normalize the alignment feature (this comes from DINO)
+                            print(f"[DEBUG POST-NORM b={b}, now it's proj_b_vra] std={proj_b_vra.std():.6f}")  # ← Questo è il tuo 0.029!
+                            print(f"[DEBUG POST-NORM b={b}, now it's proj_b_vra] L2 norms: {torch.norm(proj_b_vra, p=2, dim=-1).mean():.6f} (should be 1.0)")
+
+                            # * Add the VRA loss
+                            vra_loss += (-(proj_b_vra * alig_b).sum(dim=-1)).mean()
+
+                            # TODO PROBABLY NEED TO ADD HERE THE COMPUTATION FOR THE CONTRASTIVE LOSS
+                            if self.contrastive_loss and patch_labels is not None:
+                                # print(f"[DEBUG CALL] b={b}, bsz={bsz}")
+                                # print(f"[DEBUG CALL] patch_labels.shape = {patch_labels.shape}")
+                                # print(f"[DEBUG CALL] patch_labels[{b}].shape = {patch_labels[b].shape}")
+                                # print(f"[DEBUG CALL] proj_b.shape = {proj_b.shape}")
+
+                                # Verifica dimensioni
+                                assert patch_labels[b].dim() == 1, \
+                                    f"Expected 1D single-label tensor, got shape {patch_labels[b].shape}"
+                                
+                                contrastive_b = self.compute_contrastive_loss(
+                                    patch_features=proj_b,         # (576, D)
+                                    patch_labels=patch_labels[b],  # (576,) ← single label per patch
+                                    temperature=self.contrastive_temperature,
+                                    n_samples=self.contrastive_n_samples,
+                                    verbose=True
+                                )
+                                contrastive_loss += contrastive_b
                         elif self.alignment_loss == "similarity":
                             proj_b = projected_feature[b, idx, img_tokens_b, :]
                             alig_b = alignment_feature[b]
@@ -626,101 +750,15 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                             raise ValueError(f"Unknown alignment loss: {self.alignment_loss}")
             if valid_batch_count > 0:
                 vra_loss /= (valid_batch_count * len(self.target_layers))
-
-        # ^ Contrastive Loss computation
-        contrastive_loss_value = torch.tensor(0.0, device=hidden_states.device)
-    
-        if self.contrastive_loss and self.training:
-            # Solo durante training e se le maschere sono fornite
-            if segmentation_masks is not None and len(segmentation_masks) > 0:
-                print(f"[DEBUG] Computing contrastive loss with {len(segmentation_masks)} batches")
-                
-                # Estrai vision features dal vision tower
-                vision_tower = self.model.vision_tower
-                if vision_tower is not None and images is not None:
-                    try:
-                        # Forward pass attraverso il vision encoder
-                        with torch.no_grad():
-                            # Usa lo stesso preprocessing del vision tower
-                            if hasattr(vision_tower, 'image_processor'):
-                                # Se hai già preprocessato, usa direttamente images
-                                vision_features = vision_tower(images)  # (B, 577, D) o (B, 576, D)
-                            else:
-                                # Altrimenti preprocessa prima
-                                images_resized = F.interpolate(images, size=(336, 336), mode="bilinear")
-                                vision_features = vision_tower(images_resized)
-                        
-                        # vision_features shape: (B, seq_len, D)
-                        # seq_len può essere 577 (con CLS) o 576 (senza CLS)
-                        
-                        batch_size = vision_features.size(0)
-                        
-                        # Trova dove sono i vision tokens nella sequenza
-                        img_token_positions = img_token_where  # Già calcolato prima
-                        
-                        # Calcola loss per ogni sample nel batch
-                        total_contrast_loss = 0.0
-                        valid_samples = 0
-                        
-                        for b in range(batch_size):
-                            # Verifica che questo sample abbia vision tokens
-                            if not img_token_positions[b].any():
-                                continue
-                            
-                            # Estrai le features vision per questo sample
-                            vision_feats_b = vision_features[b]  # (seq_len, D)
-                            
-                            # Rimuovi CLS token se presente
-                            seq_len = vision_feats_b.size(0)
-                            if seq_len == 577:
-                                vision_feats_b = vision_feats_b[1:]  # Rimuovi CLS, ora (576, D)
-                            
-                            # Reshape in griglia 2D (24x24 per CLIP)
-                            grid_size = int(np.sqrt(vision_feats_b.size(0)))
-                            vision_feats_2d = vision_feats_b.view(grid_size, grid_size, -1)  # (24, 24, D)
-                            
-                            # Ottieni le maschere per questo sample
-                            masks_b = segmentation_masks[b] if b < len(segmentation_masks) else []
-                            
-                            if masks_b is None or (isinstance(masks_b, list) and len(masks_b) == 0):
-                                print(f"[DEBUG] Sample {b}: No masks provided, skipping")
-                                continue
-                            
-                            print(f"[DEBUG] Sample {b}: Processing {len(masks_b)} masks")
-                            # Calcola contrastive loss
-                            try:
-                                loss_b = self.contrast_manager.forward(
-                                    features=vision_feats_2d,
-                                    masks=masks_b,
-                                    feature_hw=(grid_size, grid_size)
-                                )
-                                
-                                if loss_b.item() > 0:
-                                    total_contrast_loss += loss_b
-                                    valid_samples += 1
-                                    print(f"[DEBUG] Sample {b}: contrastive_loss={loss_b.item():.4f}, num_objects={len(masks_b)}")
-                            except Exception as e:
-                                print(f"[WARNING] Failed to compute contrastive loss for sample {b}: {e}")
-                                continue
-                        
-                        # Media sul batch
-                        if valid_samples > 0:
-                            contrastive_loss_value = total_contrast_loss / valid_samples
-                            print(f"[INFO] Contrastive loss: {contrastive_loss_value.item():.4f} "
-                                f"(averaged over {valid_samples}/{batch_size} samples)")
-                        else:
-                            print(f"[WARNING] No valid samples for contrastive loss in this batch")
-                        
-                    except Exception as e:
-                        print(f"[ERROR] Failed to compute contrastive loss: {e}")
-                        import traceback
-                        traceback.print_exc()
-                else:
-                    print(f"[WARNING] Vision tower or images not available for contrastive loss")
-            else:
-                print(f"[DEBUG] Contrastive loss skipped: segmentation_masks={'provided' if segmentation_masks else 'None'}")
-        # ^ Contrastive Loss computation
+                if self.contrastive_loss:
+                    contrastive_loss /= (valid_batch_count * len(self.target_layers))
+                    if not isinstance(contrastive_loss, torch.Tensor):
+                        contrastive_loss = torch.tensor(contrastive_loss, device=hidden_states.device)
+                    # * Plot contrastive loss
+                    if is_main_process() and self.training:
+                        wandb.log({"contrastive loss": contrastive_loss.item()})
             
+        # * Compute logits
         if self.config.pretraining_tp > 1:
             lm_head_slices = self.lm_head.weight.split(self.vocab_size // self.config.pretraining_tp, dim=0)
             logits = [F.linear(hidden_states, lm_head_slices[i]) for i in range(self.config.pretraining_tp)]
@@ -729,6 +767,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             logits = self.lm_head(hidden_states)
         logits = logits.float()
 
+        # * Compute the usual language modeling loss
         loss = None
         if labels is not None:
             # Shift so that tokens < n predict n
@@ -742,6 +781,9 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
             shift_labels = shift_labels.to(shift_logits.device)
             loss = loss_fct(shift_logits, shift_labels)
         
+        # * Fusion of the losses
+        # ^ loss qui è solo la loss base di language modeling (Next Token Prediction)
+        # ! QUI SAREBBE DA FARE L'AGGIUNTA DELLA CONTRASTIVE
         if self.vra_loss:
             print(f"VRA loss: {vra_loss} || NTP loss: {loss}")
             if is_main_process() and self.training:
@@ -757,30 +799,23 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
                 if is_main_process():
                     wandb.log({"ntp loss": loss.item()})
         
+        # ^ Contrastive Loss (added)
+        if self.contrastive_loss:
+            loss = loss + self.contrastive_weight * contrastive_loss
+        
+        # * Diffusion loss (not relevant for VIRAL paper)
         diffusion_loss = torch.tensor(0.0, device=hidden_states.device)
         if self.diffusion_loss:
             bsz = hidden_states.shape[0]
             if img_token_where.sum() == bsz * 576:
                 diffusion_loss = self.compute_vm_loss(images, hidden_states, img_token_where)
                 
-            print(f"Diffusion loss: {diffusion_loss} || NTP loss: {loss}")
+            print(f"Diffusion loss: {diffusion_loss}")
             if is_main_process():
                 wandb.log({"diffusion loss": diffusion_loss.item()})
                 # wandb.log({"ntp loss": loss.item()})
+            # * Add the diffusion loss (now loss = NTP + VRA + Diffusion)
             loss = loss + self.diffusion_weight * diffusion_loss
-
-        # ^ IMPLEMENTO QUI LA CONTRASTIVE LOSS DI EGOLIFTER
-        if self.contrastive_loss and contrastive_loss_value.item() > 0:
-            print(f"Contrastive loss: {contrastive_loss_value.item():.4f} || NTP loss: {loss.item():.4f}")
-            if is_main_process() and self.training:
-                wandb.log({"contrastive_loss": contrastive_loss_value.item()})
-                # wandb.log({"ntp_loss": loss.item()})
-            
-            # Aggiungi alla loss totale
-            loss = loss + self.contrastive_weight * contrastive_loss_value
-            
-            print(f"Total loss: {loss.item():.4f} "
-                f"(NTP + {self.contrastive_weight} * Contrastive)")
 
         if not return_dict:
             output = (logits,) + outputs[1:]
@@ -802,6 +837,9 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         image_sizes: Optional[torch.Tensor] = None,
         **kwargs,
     ) -> Union[GenerateOutput, torch.LongTensor]:
+        """
+        Inference time, generates the output given text + images
+        """
         position_ids = kwargs.pop("position_ids", None)
         attention_mask = kwargs.pop("attention_mask", None)
         if "inputs_embeds" in kwargs:
@@ -846,6 +884,162 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         if image_sizes is not None:
             inputs['image_sizes'] = image_sizes
         return inputs
+
+    # ^ ADDED FOR CONTRASTIVE LOSS IMPLEMENTATION
+    def compute_contrastive_loss(
+        self,
+        patch_features: torch.Tensor,
+        patch_labels: torch.Tensor,
+        temperature: float = 0.07,
+        n_samples: int = None,
+        verbose: bool = False,
+    ) -> torch.Tensor:
+        """
+        InfoNCE contrastive loss con formula corretta.
+        """
+        device = patch_features.device
+        N, D = patch_features.shape
+        
+        # ═══════════════════════════════════════════════════════════
+        # VALIDAZIONE
+        # ═══════════════════════════════════════════════════════════
+        assert patch_features.dim() == 2
+        assert patch_labels.dim() == 1
+        assert patch_labels.shape[0] == N
+        assert temperature > 0
+        
+        # ═══════════════════════════════════════════════════════════
+        # 1. Filtra patch valide (label > 0, escludi background)
+        # ═══════════════════════════════════════════════════════════
+        valid_mask = patch_labels > 0
+        num_valid = valid_mask.sum().item()
+        
+        if num_valid < 2:
+            if verbose:
+                print(f"[CONTRASTIVE] ⚠️ Less than 2 valid patches → returning 0.0")
+            return torch.tensor(0.0, device=device, dtype=patch_features.dtype)
+        
+        # Check: almeno 2 oggetti diversi (altrimenti no negatives)
+        unique_labels = torch.unique(patch_labels[valid_mask])
+        if unique_labels.numel() == 1:
+            if verbose:
+                print(f"[CONTRASTIVE] ⚠️ Only 1 unique object → no negatives → returning 0.0")
+            return torch.tensor(0.0, device=device, dtype=patch_features.dtype)
+        
+        if verbose:
+            print(f"\n[CONTRASTIVE] ═══ Input Info ═══")
+            print(f"[CONTRASTIVE] Valid patches: {num_valid}/{N} ({100*num_valid/N:.1f}%)")
+            print(f"[CONTRASTIVE] Unique objects: {unique_labels.tolist()}")
+        
+        # ═══════════════════════════════════════════════════════════
+        # 2. Normalizza features e calcola similarity
+        # ═══════════════════════════════════════════════════════════
+        print(f"[CONTRASTIVE] Feature std before normalization : {patch_features.std().item():.4f}")
+        patch_features_norm = F.normalize(patch_features, p=2, dim=-1)
+        print(f"[CONTRASTIVE] Feature std after normalization : {patch_features_norm.std().item():.4f}")
+        sim_matrix = torch.matmul(patch_features_norm, patch_features_norm.T) / temperature
+        # Shape: (N, N), già diviso per temperature!
+        
+        # ═══════════════════════════════════════════════════════════
+        # 3. Costruisci Positive Mask
+        # ═══════════════════════════════════════════════════════════
+        labels_eq = patch_labels.unsqueeze(1) == patch_labels.unsqueeze(0)  # (N, N)
+        valid_pair_mask = valid_mask.unsqueeze(1) & valid_mask.unsqueeze(0)
+        pos_mask = labels_eq & valid_pair_mask  # (N, N) bool
+        
+        # Escludi diagonale (self-similarity)
+        eye_mask = torch.eye(N, device=device, dtype=torch.bool)
+        pos_mask = pos_mask & ~eye_mask
+        
+        # ═══════════════════════════════════════════════════════════
+        # 4. Seleziona anchors con almeno 1 positive
+        # ═══════════════════════════════════════════════════════════
+        has_positives = pos_mask.sum(dim=1) > 0
+        anchor_indices = has_positives.nonzero(as_tuple=False).squeeze(-1)
+        
+        if anchor_indices.numel() == 0:
+            if verbose:
+                print(f"[CONTRASTIVE] ⚠️ No valid anchors → returning 0.0")
+            return torch.tensor(0.0, device=device, dtype=patch_features.dtype)
+        
+        # Subsampling
+        if n_samples is not None and anchor_indices.numel() > n_samples:
+            perm = torch.randperm(anchor_indices.numel(), device=device)
+            anchor_indices = anchor_indices[perm[:n_samples]]
+        
+        A = anchor_indices.numel()
+        
+        if verbose:
+            print(f"[CONTRASTIVE] Using {A} anchors")
+        
+        # ═══════════════════════════════════════════════════════════
+        # 5. Calcola InfoNCE Loss (FORMULA CORRETTA)
+        # ═══════════════════════════════════════════════════════════
+        sim_anchor = sim_matrix[anchor_indices]  # (A, N)
+        pos_anchor = pos_mask[anchor_indices]    # (A, N) bool
+        
+        # Maschera per denominatore: tutti tranne anchor stesso
+        denom_mask = ~eye_mask[anchor_indices]  # (A, N) bool
+        
+        # Numeratore: Σ_{j∈P(i)} exp(sim_ij / τ)
+        # Nota: sim_matrix è già diviso per temperature!
+        exp_sim = torch.exp(sim_anchor)  # (A, N)
+        numerator = (exp_sim * pos_anchor.float()).sum(dim=1)  # (A,)
+        
+        # Denominatore: Σ_{k≠i} exp(sim_ik / τ)
+        denominator = (exp_sim * denom_mask.float()).sum(dim=1)  # (A,)
+        
+        # Loss: -log(numerator / denominator)
+        # Equivalente: log(denominator) - log(numerator)
+        loss_per_anchor = torch.log(denominator) - torch.log(numerator)  # (A,)
+        
+        # Safety checks
+        if torch.any(numerator <= 0) or torch.any(denominator <= 0):
+            if verbose:
+                print(f"[CONTRASTIVE] ❌ ERROR: Zero in log! num={numerator.min():.2e}, denom={denominator.min():.2e}")
+            return torch.tensor(0.0, device=device, dtype=patch_features.dtype)
+        
+        loss = loss_per_anchor.mean()
+        
+        # ═══════════════════════════════════════════════════════════
+        # 6. Debug info
+        # ═══════════════════════════════════════════════════════════
+        if verbose:
+            pos_sim = sim_anchor[pos_anchor] * temperature  # Riporta a scala originale
+            neg_mask = (~pos_anchor) & denom_mask
+            neg_sim = sim_anchor[neg_mask] * temperature
+            
+            pos_neg_gap = pos_sim.mean() - neg_sim.mean()
+            
+            print(f"[CONTRASTIVE] Similarity stats:")
+            print(f"[CONTRASTIVE]   Positive: mean={pos_sim.mean().item():.3f}, "
+                f"range=[{pos_sim.min().item():.3f}, {pos_sim.max().item():.3f}]")
+            print(f"[CONTRASTIVE]   Negative: mean={neg_sim.mean().item():.3f}, "
+                f"range=[{neg_sim.min().item():.3f}, {neg_sim.max().item():.3f}]")
+            print(f"[CONTRASTIVE]   Gap: {pos_neg_gap.item():.3f} (target >0.15)")
+            
+            # Feature variance check
+            feature_std = patch_features.std(dim=0).mean()
+            print(f"[CONTRASTIVE] Feature std: {feature_std.item():.4f} (target 0.3-0.5)")
+            
+            print(f"[CONTRASTIVE] ─── Loss ───")
+            print(f"[CONTRASTIVE] Value: {loss.item():.4f}")
+            print(f"[CONTRASTIVE] Per anchor: mean={loss_per_anchor.mean().item():.3f}, "
+                f"range=[{loss_per_anchor.min().item():.3f}, {loss_per_anchor.max().item():.3f}]")
+            
+            if pos_neg_gap < 0.1:
+                print(f"[CONTRASTIVE] ⚠️ WARNING: Feature collapse risk!")
+            if feature_std < 0.1:
+                print(f"[CONTRASTIVE] ⚠️ WARNING: Feature variance too low!")
+            
+            print(f"[CONTRASTIVE] ═══════════════════════════\n")
+        
+        # Validazione finale
+        assert not torch.isnan(loss), "Loss is NaN!"
+        assert not torch.isinf(loss), "Loss is Inf!"
+        assert loss >= 0, f"Loss should be non-negative, got {loss.item()}"
+        
+        return loss
 
 AutoConfig.register("llava_llama", LlavaConfig)
 AutoModelForCausalLM.register(LlavaConfig, LlavaLlamaForCausalLM)

@@ -47,8 +47,8 @@
   "projector_dim": 2048,
   "z_dim": 768,
   "contrastive_loss": true,
-  "contrastive_weight": 0.1,
-  "contrastive_temperature": 0.07,
-  "contrastive_n_samples": 256,
-  "contrastive_sum_in_log": true
+  "contrastive_weight": 0.2,
+  "contrastive_temperature": 0.8,
+  "contrastive_n_samples": 150,
+  "contrastive_sum_in_log": false
 }
